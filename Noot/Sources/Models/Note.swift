@@ -124,7 +124,8 @@ struct NoteListItem: Codable, Identifiable, Hashable, FetchableRecord {
                 ORDER BY n.updatedAt DESC
                 LIMIT ? OFFSET ?
                 """
-            arguments = [contextId.uuidString, limit, offset]
+            // Pass UUID directly - GRDB handles blob conversion
+            arguments = [contextId, limit, offset]
         }
 
         return try NoteListItem.fetchAll(db, sql: baseQuery, arguments: arguments)
