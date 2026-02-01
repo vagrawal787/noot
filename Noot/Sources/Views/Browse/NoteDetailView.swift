@@ -16,6 +16,8 @@ struct NoteDetailView: View {
     @State private var lastRefreshed: Date = Date()
     @State private var showContextPicker: Bool = false
     @State private var availableContexts: [Context] = []
+    @State private var useRichEditor: Bool = true
+    @State private var htmlContent: String = ""
 
     enum SaveStatus {
         case saved
@@ -48,27 +50,58 @@ struct NoteDetailView: View {
                 }
 
                 // Editable content
-                TextEditor(text: $content)
-                    .font(NootTheme.monoFont)
-                    .foregroundColor(NootTheme.textPrimary)
-                    .scrollContentBackground(.hidden)
-                    .padding(12)
-                    .background(NootTheme.background)
-                    .onChange(of: content) { newContent in
-                        guard newContent != lastSavedContent else { return }
-                        saveStatus = .unsaved
+                if useRichEditor {
+                    MarkdownEditorView(
+                        content: $htmlContent,
+                        onContentChange: { newHtml in
+                            // Convert HTML to markdown for storage
+                            let newMarkdown = MarkdownConverter.htmlToMarkdown(newHtml)
+                            guard newMarkdown != lastSavedContent else { return }
+                            content = newMarkdown
+                            saveStatus = .unsaved
 
-                        // Cancel previous save task
-                        saveTask?.cancel()
+                            // Cancel previous save task
+                            saveTask?.cancel()
 
-                        // Schedule new save after delay
-                        let noteId = note.id
-                        let task = DispatchWorkItem {
-                            saveContent(noteId: noteId, newContent: newContent)
+                            // Schedule new save after delay
+                            let noteId = note.id
+                            let task = DispatchWorkItem {
+                                saveContent(noteId: noteId, newContent: newMarkdown)
+                            }
+                            saveTask = task
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: task)
+                        },
+                        onSave: {
+                            // Immediate save on Cmd+S
+                            let newMarkdown = MarkdownConverter.htmlToMarkdown(htmlContent)
+                            saveContent(noteId: note.id, newContent: newMarkdown)
                         }
-                        saveTask = task
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: task)
-                    }
+                    )
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(NootTheme.background)
+                } else {
+                    TextEditor(text: $content)
+                        .font(NootTheme.monoFont)
+                        .foregroundColor(NootTheme.textPrimary)
+                        .scrollContentBackground(.hidden)
+                        .padding(12)
+                        .background(NootTheme.background)
+                        .onChange(of: content) { newContent in
+                            guard newContent != lastSavedContent else { return }
+                            saveStatus = .unsaved
+
+                            // Cancel previous save task
+                            saveTask?.cancel()
+
+                            // Schedule new save after delay
+                            let noteId = note.id
+                            let task = DispatchWorkItem {
+                                saveContent(noteId: noteId, newContent: newContent)
+                            }
+                            saveTask = task
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: task)
+                        }
+                }
 
                 Rectangle()
                     .fill(NootTheme.cyan.opacity(0.3))
@@ -196,6 +229,18 @@ struct NoteDetailView: View {
                 // Refresh button
                 CyberIconButton(icon: "arrow.clockwise", color: NootTheme.cyan, action: refreshNote)
                     .help("Refresh from database")
+
+                // Toggle rich editor
+                CyberIconButton(icon: useRichEditor ? "doc.richtext.fill" : "doc.plaintext", color: NootTheme.cyan, action: {
+                    if useRichEditor {
+                        // Switching to plain - HTML is already converted on change
+                    } else {
+                        // Switching to rich - convert current markdown to HTML
+                        htmlContent = MarkdownConverter.markdownToHTML(content)
+                    }
+                    useRichEditor.toggle()
+                })
+                    .help(useRichEditor ? "Switch to Plain Text" : "Switch to Rich Editor")
 
                 // Toggle preview
                 CyberIconButton(icon: showPreview ? "eye.fill" : "eye", color: NootTheme.magenta, action: { showPreview.toggle() })
@@ -362,12 +407,14 @@ struct NoteDetailView: View {
                     currentNote = freshNote
                     content = freshNote.content
                     lastSavedContent = freshNote.content
+                    htmlContent = MarkdownConverter.markdownToHTML(freshNote.content)
                     lastRefreshed = Date()
                     saveStatus = .saved
                 } else {
                     // Fallback to passed note
                     content = note.content
                     lastSavedContent = note.content
+                    htmlContent = MarkdownConverter.markdownToHTML(note.content)
                 }
                 // Load contexts via join table
                 let noteContexts = try NoteContext
@@ -444,6 +491,7 @@ struct NoteDetailView: View {
                 currentNote = freshNote
                 content = freshNote.content
                 lastSavedContent = freshNote.content
+                htmlContent = MarkdownConverter.markdownToHTML(freshNote.content)
                 lastRefreshed = Date()
                 saveStatus = .saved
             }
