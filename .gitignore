@@ -1,0 +1,15 @@
+# Homebrew tap (separate repo)
+homebrew-noot/
+
+# Build artifacts
+build/
+*.dmg
+
+# Xcode
+xcuserdata/
+*.xcscmblueprint
+*.xccheckout
+DerivedData/
+
+# macOS
+.DS_Store

@@ -1,0 +1,40 @@
+name: Noot
+options:
+  bundleIdPrefix: com.noot
+  deploymentTarget:
+    macOS: "13.0"
+  xcodeVersion: "15.0"
+  generateEmptyDirectories: true
+
+packages:
+  GRDB:
+    url: https://github.com/groue/GRDB.swift
+    from: "6.24.0"
+
+targets:
+  Noot:
+    type: application
+    platform: macOS
+    sources:
+      - Sources
+    resources:
+      - Resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.noot.app
+        PRODUCT_NAME: Noot
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: "1"
+        INFOPLIST_FILE: Resources/Info.plist
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        SWIFT_VERSION: "5.9"
+        MACOSX_DEPLOYMENT_TARGET: "13.0"
+        CODE_SIGN_STYLE: Automatic
+        CODE_SIGN_IDENTITY: "-"
+        ENABLE_HARDENED_RUNTIME: NO
+    dependencies:
+      - package: GRDB
+    entitlements:
+      path: Resources/Noot.entitlements
+      properties:
+        com.apple.security.app-sandbox: false

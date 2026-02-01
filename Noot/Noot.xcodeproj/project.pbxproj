@@ -1,0 +1,574 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 63;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0138830E864501A2513F9148 /* NoteLinkPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EAD08B22A006100A60A0F5A /* NoteLinkPicker.swift */; };
+		02F11AFF07802690BC2CFC36 /* NoteAutoCloseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EEAC4DBE4D8DF1DF51B22D /* NoteAutoCloseService.swift */; };
+		0CD9452EAEB652CE53BD3C95 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF74E35AFCB41D69461DDAA /* Database.swift */; };
+		143854411A02263FD6B90710 /* NootTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1C5D6CAFE14D386EC15A6D /* NootTheme.swift */; };
+		1658440C8726EE29AC70AB82 /* MarkdownNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5055E2B0EA1729137A60D0A7 /* MarkdownNoteView.swift */; };
+		196B997DE942172A0C8AD29A /* CaptureWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897D0547A83EC73469A763C4 /* CaptureWindowView.swift */; };
+		201B933712B6838B01665387 /* Date+Noot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76008A4048E8332AFBA4A00A /* Date+Noot.swift */; };
+		29D85F765F83AB13A5FFB038 /* AudioRecorderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10E5832A9ED12C961F7999B /* AudioRecorderService.swift */; };
+		29ED2F3E6A8010960DCC5EC2 /* ContextManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708EEFFC632B99950A4D6C5B /* ContextManagerView.swift */; };
+		3933E873D9C0D9E908E8884A /* MediaCompressionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94348FE9BF38E1D533D78091 /* MediaCompressionService.swift */; };
+		4179F163D7F2E92FA744D6E9 /* Meeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E85B419D6231FA4F210F19 /* Meeting.swift */; };
+		484A1A62C26DCC4E7531D61C /* MarkdownRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8F6064C275A2AE29557734 /* MarkdownRenderer.swift */; };
+		4DAC58091C88A883F4DDFF5B /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E810F1A40BD2CD981B7E8 /* UserPreferences.swift */; };
+		592631048728868581605192 /* NoteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F548A3DD929FEDFE021B473C /* NoteListView.swift */; };
+		5929193F5E0758230A716574 /* MeetingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DA60143D9A5F7E131962D4 /* MeetingManager.swift */; };
+		6302C468B04C5CC0CEEC53A4 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CDE80A2A2C5FE2ABD7958D /* SidebarView.swift */; };
+		679181A98F3354962474BCA4 /* FileManager+Noot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880FE28D5D6665371FE5672 /* FileManager+Noot.swift */; };
+		67BF5B81674EE8A75EBBC5F4 /* MeetingEndView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CA4911371707D1B67D3A9E /* MeetingEndView.swift */; };
+		690D20E85931ADD66268809B /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0695146F441CF5E2A9CB3A /* Attachment.swift */; };
+		6A3A0786FEDF309830E69556 /* ContinueNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858E530EDFFE60C93BF4FF4D /* ContinueNoteView.swift */; };
+		7676123737E4A0B95E8AA4F7 /* NoteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD5F660222D0ABBAB3BE6C /* NoteDetailView.swift */; };
+		76A9CCF2C79E319970A93B66 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = AB431C6EDE66D545CEC34AEB /* GRDB */; };
+		76DDE1CD31D5FABCB6672E35 /* ContextPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530BFA162F001F31B73D8F3E /* ContextPicker.swift */; };
+		8AD240AD8EA3538F8A97020F /* MeetingStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C721A7D8536D1F470510F3 /* MeetingStatusView.swift */; };
+		929A64D6FFBACE7EBD0F49F6 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7FE8253B2B7EB374CF538A /* Note.swift */; };
+		99F8CB0737BD594AEDF1D9A3 /* HotkeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E526D60D31E7F9F65C4EE0 /* HotkeyManager.swift */; };
+		9A3098972C8494FCCF9D1B8C /* ScreenCaptureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299A672D236DCD55B628C22B /* ScreenCaptureService.swift */; };
+		A4A70AD40324BA349F948016 /* ScreenContextDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008F7C506A2D1E1E740D6E31 /* ScreenContextDetector.swift */; };
+		ABC45860C9A9CBDD821C4566 /* NootApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2F1724AFFBBD00C7695F1A /* NootApp.swift */; };
+		B1CB21CB907386B7C94945C7 /* MainWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63A9C5D8382F5AB494CDB47 /* MainWindowView.swift */; };
+		CC64DE53BD8CA44EAB61B216 /* NoteLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B569710E421259478381339 /* NoteLink.swift */; };
+		D63151F00C6DE07EEDC939AC /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE78823F3B0D2B68D6BBA3 /* MenuBarView.swift */; };
+		EDF841E42DA882B0873EB363 /* NoteContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C601B3BA9B01E49EAA6C2618 /* NoteContext.swift */; };
+		F092ABD359F2A520EED425F6 /* MeetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43E2A04AD6FC5F3695BEB8B /* MeetingView.swift */; };
+		F14280FA6BD43AC34EFC3159 /* ScreenContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F855621F4EC03E530B00FB /* ScreenContext.swift */; };
+		F6C45D8412965DE88CE68FFD /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8925D3A70815544BC9042F /* Notifications.swift */; };
+		FA1F9AD646DDF4D1CEB5F91D /* MeetingStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D44632414F16362279356CD /* MeetingStartView.swift */; };
+		FBEA55385C3BA946B20A27EF /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5203F8E928AD866F548644 /* InboxView.swift */; };
+		FE05BAAA583CB2551C2978BB /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CE76086AACE8A2B4F21715 /* Context.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		008F7C506A2D1E1E740D6E31 /* ScreenContextDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenContextDetector.swift; sourceTree = "<group>"; };
+		17DA60143D9A5F7E131962D4 /* MeetingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingManager.swift; sourceTree = "<group>"; };
+		1D5203F8E928AD866F548644 /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
+		27C721A7D8536D1F470510F3 /* MeetingStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingStatusView.swift; sourceTree = "<group>"; };
+		2880FE28D5D6665371FE5672 /* FileManager+Noot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Noot.swift"; sourceTree = "<group>"; };
+		28E85B419D6231FA4F210F19 /* Meeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meeting.swift; sourceTree = "<group>"; };
+		299A672D236DCD55B628C22B /* ScreenCaptureService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenCaptureService.swift; sourceTree = "<group>"; };
+		2B569710E421259478381339 /* NoteLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteLink.swift; sourceTree = "<group>"; };
+		31CA4911371707D1B67D3A9E /* MeetingEndView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingEndView.swift; sourceTree = "<group>"; };
+		38E526D60D31E7F9F65C4EE0 /* HotkeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyManager.swift; sourceTree = "<group>"; };
+		3C0695146F441CF5E2A9CB3A /* Attachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
+		3D44632414F16362279356CD /* MeetingStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingStartView.swift; sourceTree = "<group>"; };
+		4D0BB85231AC8ADF73CB7D13 /* Noot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Noot.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5055E2B0EA1729137A60D0A7 /* MarkdownNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownNoteView.swift; sourceTree = "<group>"; };
+		530BFA162F001F31B73D8F3E /* ContextPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextPicker.swift; sourceTree = "<group>"; };
+		56CE76086AACE8A2B4F21715 /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
+		5E7FE8253B2B7EB374CF538A /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		708EEFFC632B99950A4D6C5B /* ContextManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextManagerView.swift; sourceTree = "<group>"; };
+		76008A4048E8332AFBA4A00A /* Date+Noot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Noot.swift"; sourceTree = "<group>"; };
+		7CF74E35AFCB41D69461DDAA /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		7D1C5D6CAFE14D386EC15A6D /* NootTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NootTheme.swift; sourceTree = "<group>"; };
+		7D8F6064C275A2AE29557734 /* MarkdownRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownRenderer.swift; sourceTree = "<group>"; };
+		7EAD08B22A006100A60A0F5A /* NoteLinkPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteLinkPicker.swift; sourceTree = "<group>"; };
+		84F855621F4EC03E530B00FB /* ScreenContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenContext.swift; sourceTree = "<group>"; };
+		858E530EDFFE60C93BF4FF4D /* ContinueNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueNoteView.swift; sourceTree = "<group>"; };
+		897D0547A83EC73469A763C4 /* CaptureWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureWindowView.swift; sourceTree = "<group>"; };
+		8C4E810F1A40BD2CD981B7E8 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		94348FE9BF38E1D533D78091 /* MediaCompressionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCompressionService.swift; sourceTree = "<group>"; };
+		98CE78823F3B0D2B68D6BBA3 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
+		A5CDE80A2A2C5FE2ABD7958D /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		AE8925D3A70815544BC9042F /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		B5EEAC4DBE4D8DF1DF51B22D /* NoteAutoCloseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteAutoCloseService.swift; sourceTree = "<group>"; };
+		B63A9C5D8382F5AB494CDB47 /* MainWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowView.swift; sourceTree = "<group>"; };
+		C10E5832A9ED12C961F7999B /* AudioRecorderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderService.swift; sourceTree = "<group>"; };
+		C601B3BA9B01E49EAA6C2618 /* NoteContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteContext.swift; sourceTree = "<group>"; };
+		CAAD5F660222D0ABBAB3BE6C /* NoteDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailView.swift; sourceTree = "<group>"; };
+		E43E2A04AD6FC5F3695BEB8B /* MeetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingView.swift; sourceTree = "<group>"; };
+		F548A3DD929FEDFE021B473C /* NoteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListView.swift; sourceTree = "<group>"; };
+		FE2F1724AFFBBD00C7695F1A /* NootApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NootApp.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AADE73EA0444642D9553253C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				76A9CCF2C79E319970A93B66 /* GRDB in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2C6B9DF1354CF6332F0D0BBA /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				708EEFFC632B99950A4D6C5B /* ContextManagerView.swift */,
+				530BFA162F001F31B73D8F3E /* ContextPicker.swift */,
+				5055E2B0EA1729137A60D0A7 /* MarkdownNoteView.swift */,
+				7D8F6064C275A2AE29557734 /* MarkdownRenderer.swift */,
+				7EAD08B22A006100A60A0F5A /* NoteLinkPicker.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		30D8B3FF43F403A96B1149E5 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				76008A4048E8332AFBA4A00A /* Date+Noot.swift */,
+				2880FE28D5D6665371FE5672 /* FileManager+Noot.swift */,
+				AE8925D3A70815544BC9042F /* Notifications.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		40CE55B5D8F69726C7B49C40 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3C0695146F441CF5E2A9CB3A /* Attachment.swift */,
+				56CE76086AACE8A2B4F21715 /* Context.swift */,
+				7CF74E35AFCB41D69461DDAA /* Database.swift */,
+				28E85B419D6231FA4F210F19 /* Meeting.swift */,
+				5E7FE8253B2B7EB374CF538A /* Note.swift */,
+				C601B3BA9B01E49EAA6C2618 /* NoteContext.swift */,
+				2B569710E421259478381339 /* NoteLink.swift */,
+				84F855621F4EC03E530B00FB /* ScreenContext.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5C57768E45C18B46E430E67D /* Meeting */ = {
+			isa = PBXGroup;
+			children = (
+				31CA4911371707D1B67D3A9E /* MeetingEndView.swift */,
+				3D44632414F16362279356CD /* MeetingStartView.swift */,
+				27C721A7D8536D1F470510F3 /* MeetingStatusView.swift */,
+				E43E2A04AD6FC5F3695BEB8B /* MeetingView.swift */,
+			);
+			path = Meeting;
+			sourceTree = "<group>";
+		};
+		9055156E4D71FB72F7D2AB2D /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				FE2F1724AFFBBD00C7695F1A /* NootApp.swift */,
+				40CE55B5D8F69726C7B49C40 /* Models */,
+				9F2FA5DBBF5DA9C0BF645ACB /* Services */,
+				BC50037A739F80F9C02D61A9 /* Theme */,
+				30D8B3FF43F403A96B1149E5 /* Utilities */,
+				EC8D18E74B8B4E0F2C21EFCD /* Views */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		90D8A5F324273FA4CD2C44F1 /* Capture */ = {
+			isa = PBXGroup;
+			children = (
+				897D0547A83EC73469A763C4 /* CaptureWindowView.swift */,
+				858E530EDFFE60C93BF4FF4D /* ContinueNoteView.swift */,
+			);
+			path = Capture;
+			sourceTree = "<group>";
+		};
+		9F2FA5DBBF5DA9C0BF645ACB /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C10E5832A9ED12C961F7999B /* AudioRecorderService.swift */,
+				38E526D60D31E7F9F65C4EE0 /* HotkeyManager.swift */,
+				94348FE9BF38E1D533D78091 /* MediaCompressionService.swift */,
+				17DA60143D9A5F7E131962D4 /* MeetingManager.swift */,
+				B5EEAC4DBE4D8DF1DF51B22D /* NoteAutoCloseService.swift */,
+				299A672D236DCD55B628C22B /* ScreenCaptureService.swift */,
+				008F7C506A2D1E1E740D6E31 /* ScreenContextDetector.swift */,
+				8C4E810F1A40BD2CD981B7E8 /* UserPreferences.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		9F554A3C545D3FF6955A3EFE /* Inbox */ = {
+			isa = PBXGroup;
+			children = (
+				1D5203F8E928AD866F548644 /* InboxView.swift */,
+			);
+			path = Inbox;
+			sourceTree = "<group>";
+		};
+		A5C2A863DFDA3412DB85DED6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4D0BB85231AC8ADF73CB7D13 /* Noot.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A6DEA7B9DB884826C0F9B5B7 /* Browse */ = {
+			isa = PBXGroup;
+			children = (
+				CAAD5F660222D0ABBAB3BE6C /* NoteDetailView.swift */,
+				F548A3DD929FEDFE021B473C /* NoteListView.swift */,
+				A5CDE80A2A2C5FE2ABD7958D /* SidebarView.swift */,
+			);
+			path = Browse;
+			sourceTree = "<group>";
+		};
+		BC50037A739F80F9C02D61A9 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				7D1C5D6CAFE14D386EC15A6D /* NootTheme.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		BDE4D6FD00C441D00CB7A18B = {
+			isa = PBXGroup;
+			children = (
+				9055156E4D71FB72F7D2AB2D /* Sources */,
+				A5C2A863DFDA3412DB85DED6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C2B9FE20A4490760FED27DBC /* MenuBar */ = {
+			isa = PBXGroup;
+			children = (
+				98CE78823F3B0D2B68D6BBA3 /* MenuBarView.swift */,
+			);
+			path = MenuBar;
+			sourceTree = "<group>";
+		};
+		EC8D18E74B8B4E0F2C21EFCD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B63A9C5D8382F5AB494CDB47 /* MainWindowView.swift */,
+				A6DEA7B9DB884826C0F9B5B7 /* Browse */,
+				90D8A5F324273FA4CD2C44F1 /* Capture */,
+				9F554A3C545D3FF6955A3EFE /* Inbox */,
+				5C57768E45C18B46E430E67D /* Meeting */,
+				C2B9FE20A4490760FED27DBC /* MenuBar */,
+				2C6B9DF1354CF6332F0D0BBA /* Shared */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E2827F771E047B45CD8DA2BA /* Noot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 001E9309B49B482C9397DC8C /* Build configuration list for PBXNativeTarget "Noot" */;
+			buildPhases = (
+				F9953A3BD2318C672970E370 /* Sources */,
+				AADE73EA0444642D9553253C /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Noot;
+			packageProductDependencies = (
+				AB431C6EDE66D545CEC34AEB /* GRDB */,
+			);
+			productName = Noot;
+			productReference = 4D0BB85231AC8ADF73CB7D13 /* Noot.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		13ACA4BBBC904B31190B7BB4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					E2827F771E047B45CD8DA2BA = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = EC4F9B37A2763C0E5A754D7A /* Build configuration list for PBXProject "Noot" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = BDE4D6FD00C441D00CB7A18B;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				5523744E5C9A2C829FFFB041 /* XCRemoteSwiftPackageReference "GRDB" */,
+			);
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E2827F771E047B45CD8DA2BA /* Noot */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F9953A3BD2318C672970E370 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				690D20E85931ADD66268809B /* Attachment.swift in Sources */,
+				29D85F765F83AB13A5FFB038 /* AudioRecorderService.swift in Sources */,
+				196B997DE942172A0C8AD29A /* CaptureWindowView.swift in Sources */,
+				FE05BAAA583CB2551C2978BB /* Context.swift in Sources */,
+				29ED2F3E6A8010960DCC5EC2 /* ContextManagerView.swift in Sources */,
+				76DDE1CD31D5FABCB6672E35 /* ContextPicker.swift in Sources */,
+				6A3A0786FEDF309830E69556 /* ContinueNoteView.swift in Sources */,
+				0CD9452EAEB652CE53BD3C95 /* Database.swift in Sources */,
+				201B933712B6838B01665387 /* Date+Noot.swift in Sources */,
+				679181A98F3354962474BCA4 /* FileManager+Noot.swift in Sources */,
+				99F8CB0737BD594AEDF1D9A3 /* HotkeyManager.swift in Sources */,
+				FBEA55385C3BA946B20A27EF /* InboxView.swift in Sources */,
+				B1CB21CB907386B7C94945C7 /* MainWindowView.swift in Sources */,
+				1658440C8726EE29AC70AB82 /* MarkdownNoteView.swift in Sources */,
+				484A1A62C26DCC4E7531D61C /* MarkdownRenderer.swift in Sources */,
+				3933E873D9C0D9E908E8884A /* MediaCompressionService.swift in Sources */,
+				4179F163D7F2E92FA744D6E9 /* Meeting.swift in Sources */,
+				67BF5B81674EE8A75EBBC5F4 /* MeetingEndView.swift in Sources */,
+				5929193F5E0758230A716574 /* MeetingManager.swift in Sources */,
+				FA1F9AD646DDF4D1CEB5F91D /* MeetingStartView.swift in Sources */,
+				8AD240AD8EA3538F8A97020F /* MeetingStatusView.swift in Sources */,
+				F092ABD359F2A520EED425F6 /* MeetingView.swift in Sources */,
+				D63151F00C6DE07EEDC939AC /* MenuBarView.swift in Sources */,
+				ABC45860C9A9CBDD821C4566 /* NootApp.swift in Sources */,
+				143854411A02263FD6B90710 /* NootTheme.swift in Sources */,
+				929A64D6FFBACE7EBD0F49F6 /* Note.swift in Sources */,
+				02F11AFF07802690BC2CFC36 /* NoteAutoCloseService.swift in Sources */,
+				EDF841E42DA882B0873EB363 /* NoteContext.swift in Sources */,
+				7676123737E4A0B95E8AA4F7 /* NoteDetailView.swift in Sources */,
+				CC64DE53BD8CA44EAB61B216 /* NoteLink.swift in Sources */,
+				0138830E864501A2513F9148 /* NoteLinkPicker.swift in Sources */,
+				592631048728868581605192 /* NoteListView.swift in Sources */,
+				F6C45D8412965DE88CE68FFD /* Notifications.swift in Sources */,
+				9A3098972C8494FCCF9D1B8C /* ScreenCaptureService.swift in Sources */,
+				F14280FA6BD43AC34EFC3159 /* ScreenContext.swift in Sources */,
+				A4A70AD40324BA349F948016 /* ScreenContextDetector.swift in Sources */,
+				6302C468B04C5CC0CEEC53A4 /* SidebarView.swift in Sources */,
+				4DAC58091C88A883F4DDFF5B /* UserPreferences.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		3649A8670C1FAD40FD17F744 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		6D9F30C43E959751182EE056 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Resources/Noot.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QA4VC5ZPBJ;
+				ENABLE_HARDENED_RUNTIME = NO;
+				INFOPLIST_FILE = Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.noot.app;
+				PRODUCT_NAME = Noot;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		D8C4DF4B2D45B463C7AA41E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Resources/Noot.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QA4VC5ZPBJ;
+				ENABLE_HARDENED_RUNTIME = NO;
+				INFOPLIST_FILE = Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.noot.app;
+				PRODUCT_NAME = Noot;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		EB6F09613EDA84D6E387FFD8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		001E9309B49B482C9397DC8C /* Build configuration list for PBXNativeTarget "Noot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D8C4DF4B2D45B463C7AA41E1 /* Debug */,
+				6D9F30C43E959751182EE056 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EC4F9B37A2763C0E5A754D7A /* Build configuration list for PBXProject "Noot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EB6F09613EDA84D6E387FFD8 /* Debug */,
+				3649A8670C1FAD40FD17F744 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5523744E5C9A2C829FFFB041 /* XCRemoteSwiftPackageReference "GRDB" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/groue/GRDB.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.24.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AB431C6EDE66D545CEC34AEB /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5523744E5C9A2C829FFFB041 /* XCRemoteSwiftPackageReference "GRDB" */;
+			productName = GRDB;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 13ACA4BBBC904B31190B7BB4 /* Project object */;
+}
