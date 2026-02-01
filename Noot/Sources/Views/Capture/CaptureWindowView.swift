@@ -736,8 +736,14 @@ struct CaptureWindowView: View {
             selectedContexts = []
             saveAndDismiss()
         } else if !noteContent.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            // First Esc with content - show context picker
-            showQuickContextPicker = true
+            // First Esc with content
+            if selectedContexts.isEmpty {
+                // No contexts selected - show context picker
+                showQuickContextPicker = true
+            } else {
+                // Already has contexts (e.g., from meeting) - just save
+                saveAndDismiss()
+            }
         } else {
             // Empty note - just dismiss
             dismissWindow()
