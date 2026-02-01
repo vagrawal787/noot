@@ -6,6 +6,18 @@ options:
   xcodeVersion: "15.0"
   generateEmptyDirectories: true
 
+schemes:
+  Noot:
+    build:
+      targets:
+        Noot: all
+    run:
+      config: Debug
+      environmentVariables:
+        - variable: OS_ACTIVITY_MODE
+          value: disable
+          isEnabled: true
+
 packages:
   GRDB:
     url: https://github.com/groue/GRDB.swift

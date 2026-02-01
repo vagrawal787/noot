@@ -231,13 +231,17 @@ struct InlineVideoView: View {
 
 struct InlineImageView: View {
     let path: String
-    @State private var image: NSImage?
+    @State private var thumbnail: NSImage?
     @State private var showFullScreen: Bool = false
+    @State private var imageExists: Bool = true
+
+    // Max thumbnail size to limit memory usage
+    private static let maxThumbnailSize: CGFloat = 400
 
     var body: some View {
         Group {
-            if let image = image {
-                Image(nsImage: image)
+            if let thumbnail = thumbnail {
+                Image(nsImage: thumbnail)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(maxWidth: 400, maxHeight: 300)
@@ -254,7 +258,7 @@ struct InlineImageView: View {
                         // Single tap does nothing but is needed to not block double tap
                     }
                     .help("Double-click to expand")
-            } else {
+            } else if !imageExists {
                 RoundedRectangle(cornerRadius: 8)
                     .fill(Color.secondary.opacity(0.1))
                     .frame(width: 200, height: 150)
@@ -268,30 +272,87 @@ struct InlineImageView: View {
                                 .foregroundColor(.secondary)
                         }
                     )
+            } else {
+                // Loading placeholder
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color.secondary.opacity(0.1))
+                    .frame(width: 200, height: 150)
+                    .overlay(
+                        ProgressView()
+                            .scaleEffect(0.8)
+                    )
             }
         }
         .onAppear {
-            loadImage()
+            loadThumbnail()
+        }
+        .onDisappear {
+            // Release thumbnail memory when view disappears
+            thumbnail = nil
         }
         .sheet(isPresented: $showFullScreen) {
-            ImageExpandedView(image: image, path: path)
+            ImageExpandedView(path: path)
         }
     }
 
-    private func loadImage() {
-        // Try loading from the path
-        if let nsImage = NSImage(contentsOfFile: path) {
-            image = nsImage
-        } else if let url = URL(string: path), let nsImage = NSImage(contentsOf: url) {
-            image = nsImage
+    private func loadThumbnail() {
+        // Load on background thread to not block UI
+        DispatchQueue.global(qos: .userInitiated).async {
+            let thumb = Self.createThumbnail(for: path, maxSize: Self.maxThumbnailSize)
+
+            DispatchQueue.main.async {
+                if let thumb = thumb {
+                    self.thumbnail = thumb
+                } else {
+                    self.imageExists = false
+                }
+            }
         }
+    }
+
+    /// Create a downsampled thumbnail to reduce memory usage
+    private static func createThumbnail(for path: String, maxSize: CGFloat) -> NSImage? {
+        // Try to find the file (handle missing underscore issue)
+        var actualPath = path
+        if !FileManager.default.fileExists(atPath: path) {
+            let addUnderscorePattern = #"(screenshot|recording)(\d)"#
+            let alternatePath = path.replacingOccurrences(
+                of: addUnderscorePattern,
+                with: "$1_$2",
+                options: .regularExpression
+            )
+            if FileManager.default.fileExists(atPath: alternatePath) {
+                actualPath = alternatePath
+            } else {
+                return nil
+            }
+        }
+
+        let url = URL(fileURLWithPath: actualPath)
+
+        // Use ImageIO for memory-efficient downsampling
+        guard let imageSource = CGImageSourceCreateWithURL(url as CFURL, nil) else {
+            return nil
+        }
+
+        let options: [CFString: Any] = [
+            kCGImageSourceThumbnailMaxPixelSize: maxSize,
+            kCGImageSourceCreateThumbnailFromImageAlways: true,
+            kCGImageSourceCreateThumbnailWithTransform: true
+        ]
+
+        guard let cgImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options as CFDictionary) else {
+            return nil
+        }
+
+        return NSImage(cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
     }
 }
 
 struct ImageExpandedView: View {
-    let image: NSImage?
     let path: String
     @Environment(\.dismiss) private var dismiss
+    @State private var fullImage: NSImage?
 
     var body: some View {
         VStack(spacing: 0) {
@@ -311,7 +372,7 @@ struct ImageExpandedView: View {
             Divider()
 
             // Image - scaled to fit
-            if let image = image {
+            if let image = fullImage {
                 GeometryReader { geometry in
                     Image(nsImage: image)
                         .resizable()
@@ -320,6 +381,9 @@ struct ImageExpandedView: View {
                         .frame(width: geometry.size.width, height: geometry.size.height)
                 }
                 .padding()
+            } else {
+                ProgressView("Loading...")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
 
             Divider()
@@ -344,6 +408,35 @@ struct ImageExpandedView: View {
         }
         .frame(minWidth: 600, minHeight: 500)
         .frame(idealWidth: 900, idealHeight: 700)
+        .onAppear {
+            loadFullImage()
+        }
+        .onDisappear {
+            // Release full image memory when closed
+            fullImage = nil
+        }
+    }
+
+    private func loadFullImage() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            var actualPath = path
+            if !FileManager.default.fileExists(atPath: path) {
+                let addUnderscorePattern = #"(screenshot|recording)(\d)"#
+                let alternatePath = path.replacingOccurrences(
+                    of: addUnderscorePattern,
+                    with: "$1_$2",
+                    options: .regularExpression
+                )
+                if FileManager.default.fileExists(atPath: alternatePath) {
+                    actualPath = alternatePath
+                }
+            }
+
+            let image = NSImage(contentsOfFile: actualPath)
+            DispatchQueue.main.async {
+                self.fullImage = image
+            }
+        }
     }
 
     private func openInFinder() {

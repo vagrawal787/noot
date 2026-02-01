@@ -158,12 +158,15 @@ final class ScreenCaptureService: NSObject {
         let filename = "screenshot_\(Date().timeIntervalSince1970).png"
         let fileURL = screenshotsURL.appendingPathComponent(filename)
 
-        let bitmapRep = NSBitmapImageRep(cgImage: image)
-        guard let pngData = bitmapRep.representation(using: .png, properties: [:]) else {
-            throw ScreenCaptureError.encodingFailed
+        // Use autoreleasepool to release bitmap and PNG data promptly
+        try autoreleasepool {
+            let bitmapRep = NSBitmapImageRep(cgImage: image)
+            guard let pngData = bitmapRep.representation(using: .png, properties: [:]) else {
+                throw ScreenCaptureError.encodingFailed
+            }
+            try pngData.write(to: fileURL)
         }
 
-        try pngData.write(to: fileURL)
         return fileURL
     }
 
