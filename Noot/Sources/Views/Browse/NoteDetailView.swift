@@ -218,9 +218,8 @@ struct NoteDetailView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 6) {
                     ForEach(contexts) { context in
-                        let contextColor = context.type == .domain ? NootTheme.cyan : NootTheme.magenta
                         HStack(spacing: 4) {
-                            Image(systemName: context.type == .domain ? "folder" : "arrow.triangle.branch")
+                            Image(systemName: context.iconName)
                                 .font(.system(size: 9))
                             Text(context.name)
                                 .font(NootTheme.monoFontSmall)
@@ -233,16 +232,16 @@ struct NoteDetailView: View {
                             }
                             .buttonStyle(.plain)
                         }
-                        .foregroundColor(contextColor)
+                        .foregroundColor(context.themeColor)
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)
                         .background(
                             RoundedRectangle(cornerRadius: 4)
-                                .fill(contextColor.opacity(0.15))
+                                .fill(context.themeColor.opacity(0.15))
                         )
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
-                                .stroke(contextColor.opacity(0.4), lineWidth: 0.5)
+                                .stroke(context.themeColor.opacity(0.4), lineWidth: 0.5)
                         )
                     }
 
@@ -626,11 +625,10 @@ struct NoteContextPickerSheet: View {
                 ScrollView {
                     LazyVStack(spacing: 4) {
                         ForEach(filteredContexts) { context in
-                            let contextColor = context.type == .domain ? NootTheme.cyan : NootTheme.magenta
                             Button(action: { onAdd(context) }) {
                                 HStack {
-                                    Image(systemName: context.type == .domain ? "folder" : "arrow.triangle.branch")
-                                        .foregroundColor(contextColor)
+                                    Image(systemName: context.iconName)
+                                        .foregroundColor(context.themeColor)
                                         .font(.caption)
                                     Text(context.name)
                                         .font(NootTheme.monoFontSmall)
@@ -648,7 +646,7 @@ struct NoteContextPickerSheet: View {
                                 )
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 4)
-                                        .stroke(contextColor.opacity(0.2), lineWidth: 0.5)
+                                        .stroke(context.themeColor.opacity(0.2), lineWidth: 0.5)
                                 )
                                 .contentShape(Rectangle())
                             }

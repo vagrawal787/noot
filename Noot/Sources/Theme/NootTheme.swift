@@ -328,3 +328,17 @@ struct NeonStatusIndicator: View {
     .background(NootTheme.background)
     .preferredColorScheme(.dark)
 }
+
+// MARK: - Context Theme Extensions
+
+extension Context {
+    /// Theme color for this context type
+    var themeColor: Color {
+        type == .domain ? NootTheme.cyan : NootTheme.magenta
+    }
+
+    /// System icon name for this context type
+    var iconName: String {
+        type == .domain ? "folder.fill" : "arrow.triangle.branch"
+    }
+}

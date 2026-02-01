@@ -375,8 +375,6 @@ struct CaptureWindowView: View {
     }
 
     private func detectScreenContext() {
-        // TODO: Implement screen context detection
-        // For now, create a placeholder
         Task {
             if let context = await ScreenContextDetector.shared.detectCurrentContext() {
                 await MainActor.run {
@@ -755,30 +753,26 @@ struct CyberContextTag: View {
     let isSelected: Bool
     let action: () -> Void
 
-    private var tagColor: Color {
-        context.type == .domain ? NootTheme.cyan : NootTheme.magenta
-    }
-
     var body: some View {
         Button(action: action) {
             HStack(spacing: 4) {
-                Image(systemName: context.type == .domain ? "folder" : "arrow.triangle.branch")
+                Image(systemName: context.iconName)
                     .font(.system(size: 9))
                 Text(context.name)
                     .font(NootTheme.monoFontSmall)
             }
-            .foregroundColor(isSelected ? tagColor : NootTheme.textMuted)
+            .foregroundColor(isSelected ? context.themeColor : NootTheme.textMuted)
             .padding(.horizontal, 8)
             .padding(.vertical, 4)
             .background(
                 RoundedRectangle(cornerRadius: 4)
-                    .fill(isSelected ? tagColor.opacity(0.2) : NootTheme.surface)
+                    .fill(isSelected ? context.themeColor.opacity(0.2) : NootTheme.surface)
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 4)
-                    .stroke(isSelected ? tagColor.opacity(0.8) : tagColor.opacity(0.3), lineWidth: 0.5)
+                    .stroke(isSelected ? context.themeColor.opacity(0.8) : context.themeColor.opacity(0.3), lineWidth: 0.5)
             )
-            .neonGlow(isSelected ? tagColor : .clear, radius: isSelected ? 4 : 0)
+            .neonGlow(isSelected ? context.themeColor : .clear, radius: isSelected ? 4 : 0)
         }
         .buttonStyle(.plain)
     }

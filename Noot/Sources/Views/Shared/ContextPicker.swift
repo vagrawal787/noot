@@ -12,9 +12,11 @@ struct ContextPicker: View {
             // Search field
             HStack {
                 Image(systemName: "magnifyingglass")
-                    .foregroundColor(.secondary)
+                    .foregroundColor(NootTheme.cyan)
                 TextField("Search or create context...", text: $searchText)
                     .textFieldStyle(.plain)
+                    .font(NootTheme.monoFont)
+                    .foregroundColor(NootTheme.textPrimary)
                     .onSubmit {
                         if filteredContexts.isEmpty && !searchText.isEmpty {
                             showCreateNew = true
@@ -22,8 +24,11 @@ struct ContextPicker: View {
                     }
             }
             .padding(8)
+            .background(NootTheme.surface)
 
-            Divider()
+            Rectangle()
+                .fill(NootTheme.cyan.opacity(0.3))
+                .frame(height: 1)
 
             // Context list
             ScrollView {
@@ -42,8 +47,9 @@ struct ContextPicker: View {
                             HStack {
                                 Image(systemName: "plus.circle")
                                 Text("Create \"\(searchText)\"")
+                                    .font(NootTheme.monoFontSmall)
                             }
-                            .foregroundColor(.accentColor)
+                            .foregroundColor(NootTheme.cyan)
                         }
                         .buttonStyle(.plain)
                         .padding(8)
@@ -51,8 +57,10 @@ struct ContextPicker: View {
                 }
                 .padding(8)
             }
+            .background(NootTheme.background)
         }
         .frame(width: 280, height: 300)
+        .background(NootTheme.background)
         .onAppear {
             loadContexts()
         }
@@ -100,28 +108,29 @@ struct ContextPickerRow: View {
         Button(action: action) {
             HStack {
                 Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                    .foregroundColor(isSelected ? .accentColor : .secondary)
+                    .foregroundColor(isSelected ? context.themeColor : NootTheme.textMuted)
 
-                Image(systemName: context.type == .domain ? "folder" : "arrow.triangle.branch")
+                Image(systemName: context.iconName)
                     .font(.caption)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(context.themeColor.opacity(0.7))
 
                 Text(context.name)
-                    .foregroundColor(.primary)
+                    .font(NootTheme.monoFontSmall)
+                    .foregroundColor(NootTheme.textPrimary)
 
                 Spacer()
 
                 if context.pinned {
                     Image(systemName: "pin.fill")
                         .font(.caption2)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(NootTheme.textMuted)
                 }
             }
             .padding(.horizontal, 8)
             .padding(.vertical, 6)
             .background(
                 RoundedRectangle(cornerRadius: 6)
-                    .fill(isSelected ? Color.accentColor.opacity(0.1) : Color.clear)
+                    .fill(isSelected ? context.themeColor.opacity(0.15) : Color.clear)
             )
         }
         .buttonStyle(.plain)
@@ -138,33 +147,58 @@ struct CreateContextSheet: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            Text("Create Context")
-                .font(.headline)
+            Text("CREATE CONTEXT")
+                .font(NootTheme.monoFontLarge)
+                .foregroundColor(NootTheme.cyan)
 
             TextField("Name", text: $contextName)
-                .textFieldStyle(.roundedBorder)
+                .textFieldStyle(.plain)
+                .font(NootTheme.monoFont)
+                .foregroundColor(NootTheme.textPrimary)
+                .padding(10)
+                .background(NootTheme.surface)
+                .cornerRadius(6)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 6)
+                        .stroke(NootTheme.cyan.opacity(0.4), lineWidth: 1)
+                )
 
-            Picker("Type", selection: $contextType) {
-                Text("Domain").tag(ContextType.domain)
-                Text("Workstream").tag(ContextType.workstream)
+            HStack(spacing: 12) {
+                TypeButton(
+                    label: "DOMAIN",
+                    icon: "folder.fill",
+                    isSelected: contextType == .domain,
+                    color: NootTheme.cyan
+                ) {
+                    contextType = .domain
+                }
+
+                TypeButton(
+                    label: "WORKSTREAM",
+                    icon: "arrow.triangle.branch",
+                    isSelected: contextType == .workstream,
+                    color: NootTheme.magenta
+                ) {
+                    contextType = .workstream
+                }
             }
-            .pickerStyle(.segmented)
 
             HStack {
-                Button("Cancel") {
+                Button("CANCEL") {
                     dismiss()
                 }
-                .buttonStyle(.bordered)
+                .buttonStyle(NeonButtonStyle(color: NootTheme.textMuted))
 
-                Button("Create") {
+                Button("CREATE") {
                     createContext()
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(NeonButtonStyle(color: NootTheme.cyan))
                 .disabled(contextName.isEmpty)
             }
         }
-        .padding()
-        .frame(width: 300)
+        .padding(20)
+        .frame(width: 320)
+        .background(NootTheme.background)
         .onAppear {
             contextName = name
         }
@@ -186,6 +220,38 @@ struct CreateContextSheet: View {
     }
 }
 
+private struct TypeButton: View {
+    let label: String
+    let icon: String
+    let isSelected: Bool
+    let color: Color
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            VStack(spacing: 6) {
+                Image(systemName: icon)
+                    .font(.title3)
+                Text(label)
+                    .font(NootTheme.monoFontSmall)
+            }
+            .foregroundColor(isSelected ? color : NootTheme.textMuted)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 12)
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(isSelected ? color.opacity(0.15) : NootTheme.surface)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .stroke(isSelected ? color.opacity(0.6) : Color.clear, lineWidth: 1)
+            )
+        }
+        .buttonStyle(.plain)
+    }
+}
+
 #Preview {
     ContextPicker(selectedContexts: .constant([]))
+        .preferredColorScheme(.dark)
 }

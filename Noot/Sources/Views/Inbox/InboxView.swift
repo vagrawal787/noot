@@ -403,27 +403,6 @@ struct CyberActionButton: View {
     }
 }
 
-struct ActionButton: View {
-    let icon: String
-    let label: String
-    let color: Color
-    let action: () -> Void
-
-    var body: some View {
-        Button(action: action) {
-            VStack(spacing: 8) {
-                Image(systemName: icon)
-                    .font(.title2)
-                Text(label)
-                    .font(.caption)
-            }
-            .foregroundColor(color)
-            .frame(width: 80, height: 60)
-        }
-        .buttonStyle(.plain)
-    }
-}
-
 struct ContextPickerSheet: View {
     let contexts: [Context]
     let onSelect: (Set<UUID>) -> Void
@@ -593,18 +572,14 @@ struct InboxContextPickerRow: View {
     let isSelected: Bool
     let isFocused: Bool
 
-    private var contextColor: Color {
-        context.type == .domain ? NootTheme.cyan : NootTheme.magenta
-    }
-
     var body: some View {
         HStack {
             Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                .foregroundColor(isSelected ? contextColor : NootTheme.textMuted)
-                .neonGlow(isSelected ? contextColor : .clear, radius: isSelected ? 3 : 0)
-            Image(systemName: context.type == .domain ? "folder" : "arrow.triangle.branch")
+                .foregroundColor(isSelected ? context.themeColor : NootTheme.textMuted)
+                .neonGlow(isSelected ? context.themeColor : .clear, radius: isSelected ? 3 : 0)
+            Image(systemName: context.iconName)
                 .font(.caption)
-                .foregroundColor(contextColor.opacity(0.7))
+                .foregroundColor(context.themeColor.opacity(0.7))
             Text(context.name)
                 .font(NootTheme.monoFontSmall)
                 .foregroundColor(NootTheme.textPrimary)
@@ -617,11 +592,11 @@ struct InboxContextPickerRow: View {
         .padding(.vertical, 8)
         .background(
             RoundedRectangle(cornerRadius: 6)
-                .fill(isFocused ? contextColor.opacity(0.15) : (isSelected ? contextColor.opacity(0.1) : NootTheme.surface.opacity(0.5)))
+                .fill(isFocused ? context.themeColor.opacity(0.15) : (isSelected ? context.themeColor.opacity(0.1) : NootTheme.surface.opacity(0.5)))
         )
         .overlay(
             RoundedRectangle(cornerRadius: 6)
-                .stroke(isFocused ? contextColor.opacity(0.6) : (isSelected ? contextColor.opacity(0.3) : Color.clear), lineWidth: 1)
+                .stroke(isFocused ? context.themeColor.opacity(0.6) : (isSelected ? context.themeColor.opacity(0.3) : Color.clear), lineWidth: 1)
         )
     }
 }

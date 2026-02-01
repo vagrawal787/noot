@@ -227,16 +227,12 @@ struct SidebarContextRow: View {
     @State private var showRenameSheet = false
     @State private var newName = ""
 
-    private var contextColor: Color {
-        context.type == .domain ? NootTheme.cyan : NootTheme.magenta
-    }
-
     var body: some View {
         Button(action: onSelect) {
             HStack {
-                Image(systemName: context.type == .domain ? "folder" : "arrow.triangle.branch")
+                Image(systemName: context.iconName)
                     .font(.caption)
-                    .foregroundColor(isSelected ? contextColor : NootTheme.textMuted)
+                    .foregroundColor(isSelected ? context.themeColor : NootTheme.textMuted)
                     .frame(width: 20)
                 Text(context.name)
                     .font(NootTheme.monoFontSmall)
@@ -253,10 +249,10 @@ struct SidebarContextRow: View {
         .buttonStyle(.plain)
         .listRowBackground(
             RoundedRectangle(cornerRadius: 6)
-                .fill(isSelected ? contextColor.opacity(0.15) : Color.clear)
+                .fill(isSelected ? context.themeColor.opacity(0.15) : Color.clear)
                 .overlay(
                     RoundedRectangle(cornerRadius: 6)
-                        .stroke(isSelected ? contextColor.opacity(0.4) : Color.clear, lineWidth: 1)
+                        .stroke(isSelected ? context.themeColor.opacity(0.4) : Color.clear, lineWidth: 1)
                 )
                 .padding(.horizontal, 4)
         )

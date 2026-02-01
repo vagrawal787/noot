@@ -30,20 +30,24 @@ struct MenuBarView: View {
 
             HStack {
                 Text("Open Inbox")
+                    .font(NootTheme.monoFontSmall)
+                    .foregroundColor(NootTheme.textPrimary)
                 Spacer()
                 if inboxCount > 0 {
                     Text("\(inboxCount)")
-                        .font(.caption2)
+                        .font(.system(size: 10, weight: .bold, design: .monospaced))
                         .padding(.horizontal, 6)
                         .padding(.vertical, 2)
-                        .background(Color.red)
-                        .foregroundColor(.white)
+                        .background(NootTheme.magenta)
+                        .foregroundColor(NootTheme.textPrimary)
                         .clipShape(Capsule())
                 }
                 Text("⌘⌥I")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                    .font(NootTheme.monoFontSmall)
+                    .foregroundColor(NootTheme.textMuted)
             }
+            .padding(.vertical, 4)
+            .padding(.horizontal, 8)
             .contentShape(Rectangle())
             .onTapGesture {
                 if let appDelegate = NSApp.delegate as? AppDelegate {
@@ -59,7 +63,7 @@ struct MenuBarView: View {
 
             Divider()
 
-            MenuBarButton(title: "Preferences...", shortcut: "Cmd+,") {
+            MenuBarButton(title: "Preferences...", shortcut: "⌘,") {
                 if let appDelegate = NSApp.delegate as? AppDelegate {
                     appDelegate.openPreferences()
                 }
@@ -67,12 +71,13 @@ struct MenuBarView: View {
 
             Divider()
 
-            MenuBarButton(title: "Quit Noot", shortcut: "Cmd+Q") {
+            MenuBarButton(title: "Quit Noot", shortcut: "⌘Q") {
                 NSApplication.shared.terminate(nil)
             }
         }
         .padding(8)
         .frame(width: 220)
+        .background(NootTheme.background)
         .onAppear {
             loadInboxCount()
         }
@@ -98,10 +103,12 @@ struct MenuBarButton: View {
         Button(action: action) {
             HStack {
                 Text(title)
+                    .font(NootTheme.monoFontSmall)
+                    .foregroundColor(NootTheme.textPrimary)
                 Spacer()
                 Text(shortcut)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                    .font(NootTheme.monoFontSmall)
+                    .foregroundColor(NootTheme.textMuted)
             }
         }
         .buttonStyle(.plain)
@@ -113,4 +120,5 @@ struct MenuBarButton: View {
 
 #Preview {
     MenuBarView()
+        .preferredColorScheme(.dark)
 }

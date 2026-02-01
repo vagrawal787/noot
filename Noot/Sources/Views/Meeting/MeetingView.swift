@@ -14,7 +14,9 @@ struct MeetingView: View {
                 // Meeting header
                 header
 
-                Divider()
+                Rectangle()
+                    .fill(NootTheme.cyan.opacity(0.2))
+                    .frame(height: 1)
 
                 // Contexts
                 if !contexts.isEmpty {
@@ -31,12 +33,12 @@ struct MeetingView: View {
             }
             .padding()
         }
+        .background(NootTheme.background)
         .onAppear {
             loadData()
             loadAudio()
         }
         .onChange(of: meeting.id) { _ in
-            // Reset state when meeting changes
             loadData()
             loadAudio()
         }
@@ -44,22 +46,28 @@ struct MeetingView: View {
 
     private var contextsSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Contexts")
-                .font(.headline)
+            Text("CONTEXTS")
+                .font(NootTheme.monoFontSmall)
+                .foregroundColor(NootTheme.textMuted)
 
             FlowLayout(spacing: 6) {
                 ForEach(contexts) { context in
                     HStack(spacing: 4) {
-                        Image(systemName: context.type == .domain ? "folder" : "arrow.triangle.branch")
+                        Image(systemName: context.iconName)
                             .font(.caption2)
                         Text(context.name)
-                            .font(.caption)
+                            .font(NootTheme.monoFontSmall)
                     }
+                    .foregroundColor(context.themeColor)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
                     .background(
                         RoundedRectangle(cornerRadius: 6)
-                            .fill(Color.accentColor.opacity(0.1))
+                            .fill(context.themeColor.opacity(0.15))
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 6)
+                            .stroke(context.themeColor.opacity(0.3), lineWidth: 0.5)
                     )
                 }
             }
@@ -76,18 +84,18 @@ struct MeetingView: View {
     private var header: some View {
         VStack(alignment: .leading, spacing: 8) {
             if let title = meeting.title {
-                Text(title)
-                    .font(.title2)
-                    .fontWeight(.semibold)
+                Text(title.uppercased())
+                    .font(NootTheme.monoFontLarge)
+                    .foregroundColor(NootTheme.textPrimary)
             } else {
-                Text("Meeting")
-                    .font(.title2)
-                    .fontWeight(.semibold)
+                Text("MEETING")
+                    .font(NootTheme.monoFontLarge)
+                    .foregroundColor(NootTheme.textPrimary)
             }
 
             HStack {
                 Image(systemName: "clock")
-                    .foregroundColor(.secondary)
+                    .foregroundColor(NootTheme.cyan)
 
                 Text(meeting.startedAt, style: .date)
                 Text(meeting.startedAt, style: .time)
@@ -98,22 +106,24 @@ struct MeetingView: View {
 
                     if let duration = meeting.duration {
                         Text("(\(formatDuration(duration)))")
-                            .foregroundColor(.secondary)
+                            .foregroundColor(NootTheme.textMuted)
                     }
                 } else {
-                    Text("– Ongoing")
-                        .foregroundColor(.green)
+                    Text("– ONGOING")
+                        .foregroundColor(NootTheme.success)
+                        .neonGlow(NootTheme.success, radius: 4)
                 }
             }
-            .font(.caption)
-            .foregroundColor(.secondary)
+            .font(NootTheme.monoFontSmall)
+            .foregroundColor(NootTheme.textSecondary)
         }
     }
 
     private var audioSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Audio Recording")
-                .font(.headline)
+            Text("AUDIO RECORDING")
+                .font(NootTheme.monoFontSmall)
+                .foregroundColor(NootTheme.textMuted)
 
             HStack(spacing: 12) {
                 // Play/Pause button
@@ -125,30 +135,45 @@ struct MeetingView: View {
                     }
                 }) {
                     Image(systemName: audioPlayer.isPlaying ? "pause.fill" : "play.fill")
+                        .foregroundColor(audioPlayer.isPlaying ? NootTheme.magenta : NootTheme.cyan)
                         .frame(width: 20)
                 }
-                .buttonStyle(.bordered)
+                .buttonStyle(NeonButtonStyle(color: audioPlayer.isPlaying ? NootTheme.magenta : NootTheme.cyan))
 
                 // Progress slider
                 VStack(spacing: 2) {
-                    Slider(
-                        value: Binding(
-                            get: { audioPlayer.currentTime },
-                            set: { audioPlayer.seek(to: $0) }
-                        ),
-                        in: 0...max(audioPlayer.duration, 1)
-                    )
+                    GeometryReader { geometry in
+                        ZStack(alignment: .leading) {
+                            // Track background
+                            RoundedRectangle(cornerRadius: 2)
+                                .fill(NootTheme.surface)
+                                .frame(height: 4)
+
+                            // Progress
+                            RoundedRectangle(cornerRadius: 2)
+                                .fill(NootTheme.cyan)
+                                .frame(width: geometry.size.width * (audioPlayer.duration > 0 ? audioPlayer.currentTime / audioPlayer.duration : 0), height: 4)
+                                .neonGlow(NootTheme.cyan, radius: 2)
+                        }
+                        .gesture(
+                            DragGesture(minimumDistance: 0)
+                                .onChanged { value in
+                                    let progress = value.location.x / geometry.size.width
+                                    let time = max(0, min(audioPlayer.duration, audioPlayer.duration * progress))
+                                    audioPlayer.seek(to: time)
+                                }
+                        )
+                    }
+                    .frame(height: 4)
 
                     HStack {
                         Text(formatTime(audioPlayer.currentTime))
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
-                            .monospacedDigit()
+                            .font(NootTheme.monoFontSmall)
+                            .foregroundColor(NootTheme.textMuted)
                         Spacer()
                         Text(formatTime(audioPlayer.duration))
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
-                            .monospacedDigit()
+                            .font(NootTheme.monoFontSmall)
+                            .foregroundColor(NootTheme.textMuted)
                     }
                 }
 
@@ -159,8 +184,9 @@ struct MeetingView: View {
                     }
                 }) {
                     Image(systemName: "folder")
+                        .foregroundColor(NootTheme.textMuted)
                 }
-                .buttonStyle(.borderless)
+                .buttonStyle(.plain)
                 .help("Show in Finder")
             }
         }
@@ -174,13 +200,14 @@ struct MeetingView: View {
 
     private var notesSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Notes (\(notes.count))")
-                .font(.headline)
+            Text("NOTES (\(notes.count))")
+                .font(NootTheme.monoFontSmall)
+                .foregroundColor(NootTheme.textMuted)
 
             if notes.isEmpty {
                 Text("No notes captured during this meeting")
-                    .foregroundColor(.secondary)
-                    .font(.caption)
+                    .foregroundColor(NootTheme.textMuted)
+                    .font(NootTheme.monoFontSmall)
             } else {
                 ForEach(notes) { note in
                     MeetingNoteRow(note: note)
@@ -229,10 +256,9 @@ struct MeetingNoteRow: View {
     let note: Note
 
     private var preview: String {
-        // Remove image/video markdown for clean preview
         note.content
-            .replacingOccurrences(of: #"!\[[^\]]*\]\([^)]+\)"#, with: "📷", options: .regularExpression)
-            .replacingOccurrences(of: #"🎬\s*\[[^\]]*\]\([^)]+\)"#, with: "🎬", options: .regularExpression)
+            .replacingOccurrences(of: #"!\[[^\]]*\]\([^)]+\)"#, with: "[img]", options: .regularExpression)
+            .replacingOccurrences(of: #"🎬\s*\[[^\]]*\]\([^)]+\)"#, with: "[rec]", options: .regularExpression)
             .trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
@@ -240,24 +266,28 @@ struct MeetingNoteRow: View {
         Button(action: navigateToNote) {
             HStack(alignment: .top) {
                 Text(note.createdAt, style: .time)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                    .font(NootTheme.monoFontSmall)
+                    .foregroundColor(NootTheme.cyan)
                     .frame(width: 60, alignment: .leading)
 
                 Text(preview)
-                    .font(.body)
+                    .font(NootTheme.monoFont)
                     .lineLimit(3)
-                    .foregroundColor(.primary)
+                    .foregroundColor(NootTheme.textPrimary)
                     .frame(maxWidth: .infinity, alignment: .leading)
 
                 Image(systemName: "chevron.right")
                     .font(.caption)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(NootTheme.textMuted)
             }
             .padding(8)
             .background(
                 RoundedRectangle(cornerRadius: 6)
-                    .fill(Color.secondary.opacity(0.05))
+                    .fill(NootTheme.surface)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 6)
+                    .stroke(NootTheme.cyan.opacity(0.2), lineWidth: 0.5)
             )
             .contentShape(Rectangle())
         }
@@ -278,17 +308,65 @@ struct MeetingListView: View {
     @Binding var selectedMeeting: Meeting?
 
     var body: some View {
-        List(selection: $selectedMeeting) {
-            ForEach(meetings) { meeting in
-                MeetingListRow(meeting: meeting)
-                    .tag(meeting)
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        selectedMeeting = meeting
+        VStack(spacing: 0) {
+            // Header
+            HStack {
+                Text("MEETINGS")
+                    .font(NootTheme.monoFontSmall)
+                    .foregroundColor(NootTheme.magenta)
+                Spacer()
+                Text("\(meetings.count)")
+                    .font(NootTheme.monoFontSmall)
+                    .foregroundColor(NootTheme.textMuted)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 2)
+                    .background(
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(NootTheme.surface)
+                    )
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(NootTheme.backgroundLight)
+
+            Rectangle()
+                .fill(NootTheme.magenta.opacity(0.3))
+                .frame(height: 1)
+
+            // Meetings list
+            if meetings.isEmpty {
+                VStack(spacing: 12) {
+                    Image(systemName: "person.2")
+                        .font(.system(size: 32))
+                        .foregroundColor(NootTheme.textMuted)
+                    Text("NO MEETINGS")
+                        .font(NootTheme.monoFontSmall)
+                        .foregroundColor(NootTheme.textMuted)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(NootTheme.background)
+            } else {
+                List(selection: $selectedMeeting) {
+                    ForEach(meetings) { meeting in
+                        MeetingListRow(meeting: meeting)
+                            .tag(meeting)
+                            .listRowBackground(
+                                RoundedRectangle(cornerRadius: 6)
+                                    .fill(selectedMeeting?.id == meeting.id ? NootTheme.magenta.opacity(0.15) : Color.clear)
+                            )
+                            .listRowSeparator(.hidden)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                selectedMeeting = meeting
+                            }
                     }
+                }
+                .listStyle(.plain)
+                .scrollContentBackground(.hidden)
+                .background(NootTheme.background)
             }
         }
-        .listStyle(.plain)
+        .background(NootTheme.background)
         .onAppear {
             loadMeetings()
         }
@@ -312,12 +390,14 @@ struct MeetingListRow: View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
                 Text(meeting.title ?? "Meeting")
-                    .fontWeight(.medium)
+                    .font(NootTheme.monoFont)
+                    .foregroundColor(NootTheme.textPrimary)
                 Spacer()
                 if meeting.isOngoing {
                     Circle()
-                        .fill(Color.red)
+                        .fill(NootTheme.recording)
                         .frame(width: 8, height: 8)
+                        .neonGlow(NootTheme.recording, radius: 4)
                 }
             }
 
@@ -328,8 +408,8 @@ struct MeetingListRow: View {
                     Text("(\(Int(duration / 60)) min)")
                 }
             }
-            .font(.caption)
-            .foregroundColor(.secondary)
+            .font(NootTheme.monoFontSmall)
+            .foregroundColor(NootTheme.textMuted)
         }
         .padding(.vertical, 4)
     }
@@ -405,4 +485,5 @@ class MeetingAudioPlayer: ObservableObject {
 #Preview {
     MeetingView(meeting: Meeting(title: "Team Standup"))
         .frame(width: 500, height: 400)
+        .preferredColorScheme(.dark)
 }

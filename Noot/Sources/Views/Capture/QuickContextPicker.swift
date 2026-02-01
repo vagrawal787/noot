@@ -238,22 +238,18 @@ struct QuickContextRow: View {
     let isFocused: Bool
     let action: () -> Void
 
-    private var contextColor: Color {
-        context.type == .domain ? NootTheme.cyan : NootTheme.magenta
-    }
-
     var body: some View {
         Button(action: action) {
             HStack(spacing: 8) {
                 // Selection indicator
                 Image(systemName: isSelected ? "checkmark.square.fill" : "square")
                     .font(.system(size: 12, design: .monospaced))
-                    .foregroundColor(isSelected ? contextColor : NootTheme.textMuted)
+                    .foregroundColor(isSelected ? context.themeColor : NootTheme.textMuted)
 
                 // Context type icon
-                Image(systemName: context.type == .domain ? "folder.fill" : "arrow.triangle.branch")
+                Image(systemName: context.iconName)
                     .font(.system(size: 10))
-                    .foregroundColor(contextColor.opacity(0.8))
+                    .foregroundColor(context.themeColor.opacity(0.8))
 
                 // Context name
                 Text(context.name.uppercased())
@@ -274,11 +270,11 @@ struct QuickContextRow: View {
             .padding(.vertical, 6)
             .background(
                 RoundedRectangle(cornerRadius: 4)
-                    .fill(isFocused ? contextColor.opacity(0.15) : (isSelected ? contextColor.opacity(0.08) : Color.clear))
+                    .fill(isFocused ? context.themeColor.opacity(0.15) : (isSelected ? context.themeColor.opacity(0.08) : Color.clear))
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 4)
-                    .stroke(isFocused ? contextColor.opacity(0.5) : Color.clear, lineWidth: 1)
+                    .stroke(isFocused ? context.themeColor.opacity(0.5) : Color.clear, lineWidth: 1)
             )
         }
         .buttonStyle(.plain)
@@ -302,20 +298,6 @@ struct KeyHint: View {
                 RoundedRectangle(cornerRadius: 3)
                     .stroke(NootTheme.cyan.opacity(0.3), lineWidth: 0.5)
             )
-    }
-}
-
-// Helper extension for placeholder text
-extension View {
-    func placeholder<Content: View>(
-        when shouldShow: Bool,
-        alignment: Alignment = .leading,
-        @ViewBuilder placeholder: () -> Content
-    ) -> some View {
-        ZStack(alignment: alignment) {
-            placeholder().opacity(shouldShow ? 1 : 0)
-            self
-        }
     }
 }
 
