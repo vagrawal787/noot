@@ -3,9 +3,19 @@ import GRDB
 
 struct MenuBarView: View {
     @State private var inboxCount: Int = 0
+    @ObservedObject private var calendarService = CalendarSyncService.shared
+    @ObservedObject private var meetingManager = MeetingManager.shared
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
+            // Calendar event section
+            if UserPreferences.shared.showCalendarInMenubar, !calendarService.activeEvents.isEmpty {
+                ForEach(calendarService.activeEvents) { event in
+                    CalendarEventMenuItem(event: event)
+                }
+                Divider()
+            }
+
             MenuBarButton(title: "New Note", shortcut: "⌥Space") {
                 if let appDelegate = NSApp.delegate as? AppDelegate {
                     appDelegate.newNote()
@@ -20,7 +30,7 @@ struct MenuBarView: View {
 
             Divider()
 
-            MenuBarButton(title: "Start Meeting", shortcut: "⌘⌥M") {
+            MenuBarButton(title: meetingManager.isInMeeting ? "End Meeting" : "Start Meeting", shortcut: "⌘⌥M") {
                 if let appDelegate = NSApp.delegate as? AppDelegate {
                     appDelegate.toggleMeeting()
                 }
@@ -115,6 +125,106 @@ struct MenuBarButton: View {
         .padding(.vertical, 4)
         .padding(.horizontal, 8)
         .contentShape(Rectangle())
+    }
+}
+
+// MARK: - Calendar Event Menu Item
+
+struct CalendarEventMenuItem: View {
+    let event: CalendarEvent
+    @State private var isHovered: Bool = false
+
+    private var isUpcoming: Bool {
+        event.startTime > Date()
+    }
+
+    private var statusText: String {
+        let now = Date()
+        if event.startTime > now {
+            // Event is upcoming (within 5 minutes)
+            let remaining = event.startTime.timeIntervalSince(now)
+            let minutes = Int(remaining / 60) + 1
+            return "starts in \(minutes) min"
+        } else {
+            // Event is currently happening
+            let remaining = event.endTime.timeIntervalSince(now)
+            if remaining < 60 {
+                return "ending soon"
+            } else {
+                return "until \(event.endTime.formatted(date: .omitted, time: .shortened))"
+            }
+        }
+    }
+
+    private var statusLabel: String {
+        isUpcoming ? "Soon" : "Now"
+    }
+
+    private var accentColor: Color {
+        isUpcoming ? Color.yellow : NootTheme.cyan
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 6) {
+                Image(systemName: isUpcoming ? "clock.badge.exclamationmark" : "calendar.circle.fill")
+                    .foregroundColor(accentColor)
+                Text("\(statusLabel): \(event.title)")
+                    .font(NootTheme.monoFontSmall)
+                    .foregroundColor(NootTheme.textPrimary)
+                    .lineLimit(1)
+            }
+
+            Text(statusText)
+                .font(.system(size: 10, design: .monospaced))
+                .foregroundColor(NootTheme.textMuted)
+                .padding(.leading, 22)
+
+            HStack(spacing: 8) {
+                Button(action: startMeetingNotes) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "note.text.badge.plus")
+                        Text("Start notes")
+                    }
+                    .font(.system(size: 10, design: .monospaced))
+                }
+                .buttonStyle(NeonButtonStyle(color: NootTheme.cyan))
+
+                Button(action: ignoreEvent) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "eye.slash")
+                        Text("Ignore")
+                    }
+                    .font(.system(size: 10, design: .monospaced))
+                }
+                .buttonStyle(NeonButtonStyle(color: NootTheme.textMuted))
+            }
+            .padding(.leading, 22)
+        }
+        .padding(.vertical, 8)
+        .padding(.horizontal, 8)
+        .background(isHovered ? NootTheme.surfaceLight : Color.clear)
+        .cornerRadius(6)
+        .onHover { hovering in
+            isHovered = hovering
+        }
+    }
+
+    private func startMeetingNotes() {
+        do {
+            try MeetingManager.shared.startMeetingFromCalendarEvent(event)
+            NotificationCenter.default.post(name: .showCaptureWindow, object: nil)
+        } catch {
+            print("Failed to start meeting from calendar: \(error)")
+        }
+    }
+
+    private func ignoreEvent() {
+        do {
+            try CalendarSyncService.shared.ignoreEvent(event)
+        } catch {
+            print("Failed to ignore event: \(error)")
+        }
     }
 }
 

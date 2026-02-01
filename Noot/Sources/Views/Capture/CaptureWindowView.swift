@@ -15,6 +15,7 @@ struct CaptureWindowView: View {
     @State private var showFileSizeWarning: Bool = false
     @State private var recordingFileSize: Int = 0
     @State private var showQuickContextPicker: Bool = false
+    @State private var associateWithMeeting: Bool = true
     @FocusState private var isTextFieldFocused: Bool
 
     // Check if content has images
@@ -160,6 +161,31 @@ struct CaptureWindowView: View {
 
                 // Context tags and actions
                 HStack(spacing: 8) {
+                    // Meeting association toggle (only shows during active meeting)
+                    if MeetingManager.shared.isInMeeting {
+                        Button(action: { associateWithMeeting.toggle() }) {
+                            HStack(spacing: 4) {
+                                Image(systemName: associateWithMeeting ? "checkmark.circle.fill" : "circle")
+                                    .font(.caption2)
+                                Image(systemName: "person.2")
+                                    .font(.caption2)
+                            }
+                            .foregroundColor(associateWithMeeting ? NootTheme.cyan : NootTheme.textMuted)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .background(
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(associateWithMeeting ? NootTheme.cyan.opacity(0.2) : Color.clear)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .stroke(associateWithMeeting ? NootTheme.cyan.opacity(0.5) : NootTheme.textMuted.opacity(0.3), lineWidth: 1)
+                                    )
+                            )
+                        }
+                        .buttonStyle(.plain)
+                        .help(associateWithMeeting ? "Note will be linked to current meeting" : "Note will not be linked to meeting")
+                    }
+
                     // Recent context tags
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 6) {
@@ -272,6 +298,7 @@ struct CaptureWindowView: View {
         .onAppear {
             loadRecentContexts()
             detectScreenContext()
+            loadMeetingContexts()
             // Delay focus to ensure window is fully ready
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 isTextFieldFocused = true
@@ -371,6 +398,43 @@ struct CaptureWindowView: View {
             }
         } catch {
             print("Failed to load contexts: \(error)")
+        }
+    }
+
+    private func loadMeetingContexts() {
+        // Pre-select meeting contexts if there's an active meeting
+        guard let meeting = MeetingManager.shared.currentMeeting else { return }
+
+        do {
+            let meetingContexts = try Database.shared.read { db in
+                try MeetingContext
+                    .filter(MeetingContext.Columns.meetingId == meeting.id)
+                    .fetchAll(db)
+            }
+
+            let meetingContextIds = meetingContexts.map { $0.contextId }
+
+            // Add to selected contexts
+            for contextId in meetingContextIds {
+                selectedContexts.insert(contextId)
+            }
+
+            // Also ensure these contexts appear in recentContexts UI
+            // (they might not be in the "5 most recent" list)
+            let existingIds = Set(recentContexts.map { $0.id })
+            let missingIds = meetingContextIds.filter { !existingIds.contains($0) }
+
+            if !missingIds.isEmpty {
+                let missingContexts = try Database.shared.read { db in
+                    try Context
+                        .filter(missingIds.contains(Context.Columns.id))
+                        .fetchAll(db)
+                }
+                // Prepend meeting contexts so they appear first
+                recentContexts = missingContexts + recentContexts
+            }
+        } catch {
+            print("Failed to load meeting contexts: \(error)")
         }
     }
 
@@ -580,8 +644,8 @@ struct CaptureWindowView: View {
                     try link.insert(db)
                 }
 
-                // Associate with current meeting if one is active
-                if let meeting = MeetingManager.shared.currentMeeting {
+                // Associate with current meeting if one is active and user opted in
+                if associateWithMeeting, let meeting = MeetingManager.shared.currentMeeting {
                     let noteMeeting = NoteMeeting(noteId: savedNoteId, meetingId: meeting.id)
                     try? noteMeeting.insert(db) // Ignore if already exists
                 }
@@ -672,8 +736,14 @@ struct CaptureWindowView: View {
             selectedContexts = []
             saveAndDismiss()
         } else if !noteContent.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            // First Esc with content - show context picker
-            showQuickContextPicker = true
+            // First Esc with content
+            if selectedContexts.isEmpty {
+                // No contexts selected - show context picker
+                showQuickContextPicker = true
+            } else {
+                // Already has contexts (e.g., from meeting) - just save
+                saveAndDismiss()
+            }
         } else {
             // Empty note - just dismiss
             dismissWindow()

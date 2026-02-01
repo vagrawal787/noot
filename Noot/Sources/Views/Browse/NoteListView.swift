@@ -92,6 +92,7 @@ struct NoteListView: View {
         case .allNotes: return "All Notes"
         case .context(let ctx): return ctx.name
         case .meetings: return "Meetings"
+        case .calendar: return "Calendar"
         case .archive: return "Archive"
         case .none: return "Notes"
         }
@@ -146,7 +147,7 @@ struct NoteListView: View {
                         .filter(Note.Columns.archived == true)
                         .order(Note.Columns.updatedAt.desc)
                         .fetchAll(db)
-                case .meetings, .none:
+                case .meetings, .calendar, .none:
                     return []
                 }
             }

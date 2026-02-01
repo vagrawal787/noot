@@ -23,94 +23,109 @@ struct MeetingEndView: View {
             // Header
             HStack {
                 Image(systemName: "checkmark.circle.fill")
-                    .foregroundColor(.green)
+                    .foregroundColor(NootTheme.cyan)
                     .font(.title2)
-                Text("Meeting Ended")
-                    .font(.headline)
+                    .neonGlow(NootTheme.cyan, radius: 6)
+                Text("MEETING ENDED")
+                    .font(NootTheme.monoFontLarge)
+                    .foregroundColor(NootTheme.textPrimary)
                 Spacer()
                 Button(action: onDismiss) {
                     Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(.secondary)
+                        .foregroundColor(NootTheme.textMuted)
                 }
                 .buttonStyle(.plain)
             }
             .padding()
 
-            Divider()
+            Rectangle()
+                .fill(NootTheme.cyan.opacity(0.3))
+                .frame(height: 1)
 
             // Content
             VStack(alignment: .leading, spacing: 16) {
                 // Duration info
                 HStack {
                     Image(systemName: "clock")
-                        .foregroundColor(.secondary)
+                        .foregroundColor(NootTheme.textMuted)
                     if let duration = meeting.duration {
                         Text("Duration: \(formatDuration(duration))")
-                            .foregroundColor(.secondary)
+                            .font(NootTheme.monoFontSmall)
+                            .foregroundColor(NootTheme.textMuted)
                     }
                     Spacer()
                 }
-                .font(.caption)
 
                 // Title field
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Meeting Title")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+                    Text("MEETING TITLE")
+                        .font(NootTheme.monoFontSmall)
+                        .foregroundColor(NootTheme.textMuted)
                     TextField("Enter a title...", text: $title)
-                        .textFieldStyle(.roundedBorder)
+                        .font(NootTheme.monoFont)
+                        .textFieldStyle(.plain)
+                        .padding(8)
+                        .background(NootTheme.surface)
+                        .cornerRadius(4)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 4)
+                                .stroke(NootTheme.cyan.opacity(0.3), lineWidth: 1)
+                        )
                         .focused($isTitleFocused)
                 }
 
                 // Context picker
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
-                        Text("Assign to Contexts")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
+                        Text("ASSIGN CONTEXTS")
+                            .font(NootTheme.monoFontSmall)
+                            .foregroundColor(NootTheme.textMuted)
                         Spacer()
                         if !selectedContexts.isEmpty {
                             Text("\(selectedContexts.count) selected")
-                                .font(.caption2)
-                                .foregroundColor(.accentColor)
+                                .font(NootTheme.monoFontSmall)
+                                .foregroundColor(NootTheme.cyan)
                         }
                     }
 
                     // Search field
                     HStack {
                         Image(systemName: "magnifyingglass")
-                            .foregroundColor(.secondary)
+                            .foregroundColor(NootTheme.textMuted)
                         TextField("Search contexts...", text: $searchText)
+                            .font(NootTheme.monoFontSmall)
                             .textFieldStyle(.plain)
                         if !searchText.isEmpty {
                             Button(action: { searchText = "" }) {
                                 Image(systemName: "xmark.circle.fill")
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(NootTheme.textMuted)
                             }
                             .buttonStyle(.plain)
                         }
                     }
                     .padding(8)
-                    .background(
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(Color(.textBackgroundColor))
+                    .background(NootTheme.surface)
+                    .cornerRadius(4)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 4)
+                            .stroke(NootTheme.cyan.opacity(0.3), lineWidth: 1)
                     )
 
                     if availableContexts.isEmpty {
                         VStack(spacing: 8) {
                             Image(systemName: "folder.badge.plus")
                                 .font(.title2)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(NootTheme.textMuted)
                             Text("No contexts available")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
+                                .font(NootTheme.monoFontSmall)
+                                .foregroundColor(NootTheme.textMuted)
                         }
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 20)
                     } else if filteredContexts.isEmpty {
                         Text("No matching contexts")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
+                            .font(NootTheme.monoFontSmall)
+                            .foregroundColor(NootTheme.textMuted)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 20)
                     } else {
@@ -128,23 +143,37 @@ struct MeetingEndView: View {
                             .padding(.vertical, 4)
                         }
                         .frame(height: 200)
-                        .background(
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(Color(.controlBackgroundColor))
+                        .background(NootTheme.surface)
+                        .cornerRadius(4)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 4)
+                                .stroke(NootTheme.cyan.opacity(0.3), lineWidth: 1)
                         )
                     }
                 }
             }
             .padding()
 
-            Divider()
+            Rectangle()
+                .fill(NootTheme.cyan.opacity(0.3))
+                .frame(height: 1)
 
             // Actions
             HStack {
                 Button("Skip") {
                     onDismiss()
                 }
-                .buttonStyle(.bordered)
+                .font(NootTheme.monoFont)
+                .foregroundColor(NootTheme.textMuted)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(NootTheme.surface)
+                .cornerRadius(4)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 4)
+                        .stroke(NootTheme.textMuted.opacity(0.3), lineWidth: 1)
+                )
+                .buttonStyle(.plain)
                 .keyboardShortcut(.escape, modifiers: [])
 
                 Spacer()
@@ -152,12 +181,20 @@ struct MeetingEndView: View {
                 Button("Save") {
                     saveMeeting()
                 }
-                .buttonStyle(.borderedProminent)
+                .font(NootTheme.monoFont)
+                .foregroundColor(NootTheme.background)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(NootTheme.cyan)
+                .cornerRadius(4)
+                .neonGlow(NootTheme.cyan, radius: 4)
+                .buttonStyle(.plain)
                 .keyboardShortcut(.return, modifiers: .command)
             }
             .padding()
         }
         .frame(width: 380)
+        .background(NootTheme.background)
         .onAppear {
             title = meeting.title ?? ""
             isTitleFocused = true
@@ -189,6 +226,15 @@ struct MeetingEndView: View {
             availableContexts = try Database.shared.read { db in
                 try Context.active().fetchAll(db)
             }
+
+            // Pre-populate with existing meeting contexts
+            let existingContextIds = try Database.shared.read { db in
+                try MeetingContext
+                    .filter(MeetingContext.Columns.meetingId == meeting.id)
+                    .fetchAll(db)
+                    .map { $0.contextId }
+            }
+            selectedContexts = Set(existingContextIds)
         } catch {
             print("Failed to load contexts: \(error)")
         }
@@ -230,26 +276,27 @@ private struct MeetingEndContextRow: View {
         Button(action: action) {
             HStack {
                 Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                    .foregroundColor(isSelected ? .accentColor : .secondary)
+                    .foregroundColor(isSelected ? NootTheme.cyan : NootTheme.textMuted)
 
                 Image(systemName: context.type == .domain ? "folder" : "arrow.triangle.branch")
-                    .foregroundColor(.secondary)
+                    .foregroundColor(NootTheme.textMuted)
                     .font(.caption)
 
                 Text(context.name)
-                    .foregroundColor(.primary)
+                    .font(NootTheme.monoFontSmall)
+                    .foregroundColor(NootTheme.textPrimary)
 
                 Spacer()
 
                 Text(context.type.rawValue)
-                    .font(.caption2)
-                    .foregroundColor(.secondary)
+                    .font(NootTheme.monoFontSmall)
+                    .foregroundColor(NootTheme.textMuted)
             }
             .padding(.horizontal, 8)
             .padding(.vertical, 6)
             .background(
-                RoundedRectangle(cornerRadius: 6)
-                    .fill(isSelected ? Color.accentColor.opacity(0.1) : Color.clear)
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(isSelected ? NootTheme.cyan.opacity(0.1) : Color.clear)
             )
             .contentShape(Rectangle())
         }

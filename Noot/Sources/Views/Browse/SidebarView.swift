@@ -79,6 +79,14 @@ struct SidebarView: View {
                 }
 
                 SidebarRowView(
+                    title: "Calendar",
+                    icon: "calendar",
+                    isSelected: selection == .calendar
+                ) {
+                    selection = .calendar
+                }
+
+                SidebarRowView(
                     title: "Archive",
                     icon: "archivebox",
                     isSelected: selection == .archive
@@ -159,6 +167,7 @@ enum SidebarItem: Hashable, Equatable {
     case allNotes
     case context(Context)
     case meetings
+    case calendar
     case archive
 
     static func == (lhs: SidebarItem, rhs: SidebarItem) -> Bool {
@@ -166,6 +175,7 @@ enum SidebarItem: Hashable, Equatable {
         case (.inbox, .inbox): return true
         case (.allNotes, .allNotes): return true
         case (.meetings, .meetings): return true
+        case (.calendar, .calendar): return true
         case (.archive, .archive): return true
         case (.context(let lContext), .context(let rContext)): return lContext.id == rContext.id
         default: return false
