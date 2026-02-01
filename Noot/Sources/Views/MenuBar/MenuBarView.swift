@@ -6,13 +6,13 @@ struct MenuBarView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            MenuBarButton(title: "New Note", shortcut: "Cmd+Shift+N") {
+            MenuBarButton(title: "New Note", shortcut: "⌥Space") {
                 if let appDelegate = NSApp.delegate as? AppDelegate {
                     appDelegate.newNote()
                 }
             }
 
-            MenuBarButton(title: "Continue Note", shortcut: "Cmd+Shift+Space") {
+            MenuBarButton(title: "Continue Note", shortcut: "⌘⌥Space") {
                 if let appDelegate = NSApp.delegate as? AppDelegate {
                     appDelegate.continueNote()
                 }
@@ -20,7 +20,7 @@ struct MenuBarView: View {
 
             Divider()
 
-            MenuBarButton(title: "Start Meeting", shortcut: "Cmd+Shift+M") {
+            MenuBarButton(title: "Start Meeting", shortcut: "⌘⌥M") {
                 if let appDelegate = NSApp.delegate as? AppDelegate {
                     appDelegate.toggleMeeting()
                 }
@@ -40,7 +40,7 @@ struct MenuBarView: View {
                         .foregroundColor(.white)
                         .clipShape(Capsule())
                 }
-                Text("Cmd+Shift+I")
+                Text("⌘⌥I")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -51,7 +51,7 @@ struct MenuBarView: View {
                 }
             }
 
-            MenuBarButton(title: "Open Noot", shortcut: "Cmd+Shift+O") {
+            MenuBarButton(title: "Open Noot", shortcut: "⌘⌥O") {
                 if let appDelegate = NSApp.delegate as? AppDelegate {
                     appDelegate.openMainWindow()
                 }

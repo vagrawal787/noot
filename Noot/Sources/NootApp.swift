@@ -203,18 +203,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         let menu = NSMenu()
 
-        menu.addItem(NSMenuItem(title: "New Note", action: #selector(newNote), keyEquivalent: "n"))
-        menu.addItem(NSMenuItem(title: "Continue Note", action: #selector(continueNote), keyEquivalent: " "))
+        let newNoteItem = NSMenuItem(title: "New Note", action: #selector(newNote), keyEquivalent: " ")
+        newNoteItem.keyEquivalentModifierMask = .option
+        menu.addItem(newNoteItem)
+
+        let continueNoteItem = NSMenuItem(title: "Continue Note", action: #selector(continueNote), keyEquivalent: " ")
+        continueNoteItem.keyEquivalentModifierMask = [.command, .option]
+        menu.addItem(continueNoteItem)
         menu.addItem(NSMenuItem.separator())
 
         meetingMenuItem = NSMenuItem(title: "Start Meeting", action: #selector(toggleMeeting), keyEquivalent: "m")
+        meetingMenuItem?.keyEquivalentModifierMask = [.command, .option]
         menu.addItem(meetingMenuItem!)
         menu.addItem(NSMenuItem.separator())
 
         let inboxItem = NSMenuItem(title: "Open Inbox", action: #selector(openInbox), keyEquivalent: "i")
+        inboxItem.keyEquivalentModifierMask = [.command, .option]
         menu.addItem(inboxItem)
 
-        menu.addItem(NSMenuItem(title: "Open Noot", action: #selector(openMainWindow), keyEquivalent: "o"))
+        let openNootItem = NSMenuItem(title: "Open Noot", action: #selector(openMainWindow), keyEquivalent: "o")
+        openNootItem.keyEquivalentModifierMask = [.command, .option]
+        menu.addItem(openNootItem)
         menu.addItem(NSMenuItem.separator())
         menu.addItem(NSMenuItem(title: "Grant Accessibility Permissions...", action: #selector(openAccessibilitySettings), keyEquivalent: ""))
         menu.addItem(NSMenuItem(title: "Preferences...", action: #selector(openPreferences), keyEquivalent: ","))
