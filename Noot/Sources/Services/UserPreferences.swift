@@ -9,6 +9,13 @@ struct UserPreferencesData: Codable {
     var largeFileWarningMB: Int
     var hotkeys: HotkeyPreferences
 
+    // Calendar settings
+    var calendarPollIntervalSeconds: Int
+    var calendarSyncDaysAhead: Int
+    var showCalendarInMenubar: Bool
+    var autoStartMeetingNotes: Bool
+    var googleOAuthCredentials: GoogleOAuthCredentials
+
     init() {
         self.lastUsedContextIds = []
         self.defaultCaptureMode = .note
@@ -17,6 +24,23 @@ struct UserPreferencesData: Codable {
         self.autoCloseDelayMinutes = 30
         self.largeFileWarningMB = 100
         self.hotkeys = HotkeyPreferences()
+
+        // Calendar defaults
+        self.calendarPollIntervalSeconds = 60
+        self.calendarSyncDaysAhead = 7
+        self.showCalendarInMenubar = true
+        self.autoStartMeetingNotes = false
+        self.googleOAuthCredentials = GoogleOAuthCredentials()
+    }
+}
+
+struct GoogleOAuthCredentials: Codable {
+    var clientId: String?
+    var clientSecret: String?
+
+    init(clientId: String? = nil, clientSecret: String? = nil) {
+        self.clientId = clientId
+        self.clientSecret = clientSecret
     }
 }
 
@@ -131,6 +155,48 @@ final class UserPreferences {
         get { preferences.hotkeys }
         set {
             preferences.hotkeys = newValue
+            save()
+        }
+    }
+
+    // MARK: - Calendar Settings
+
+    var calendarPollIntervalSeconds: Int {
+        get { preferences.calendarPollIntervalSeconds }
+        set {
+            preferences.calendarPollIntervalSeconds = newValue
+            save()
+        }
+    }
+
+    var calendarSyncDaysAhead: Int {
+        get { preferences.calendarSyncDaysAhead }
+        set {
+            preferences.calendarSyncDaysAhead = newValue
+            save()
+        }
+    }
+
+    var showCalendarInMenubar: Bool {
+        get { preferences.showCalendarInMenubar }
+        set {
+            preferences.showCalendarInMenubar = newValue
+            save()
+        }
+    }
+
+    var autoStartMeetingNotes: Bool {
+        get { preferences.autoStartMeetingNotes }
+        set {
+            preferences.autoStartMeetingNotes = newValue
+            save()
+        }
+    }
+
+    var googleOAuthCredentials: GoogleOAuthCredentials {
+        get { preferences.googleOAuthCredentials }
+        set {
+            preferences.googleOAuthCredentials = newValue
             save()
         }
     }

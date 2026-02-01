@@ -6,6 +6,7 @@ enum AudioSource: String, CaseIterable {
     case microphone = "Microphone"
     case system = "System Audio"
     case both = "Both"
+    case none = "No Recording"
 }
 
 final class AudioRecorderService: NSObject {
@@ -41,6 +42,8 @@ final class AudioRecorderService: NSObject {
             return try startSystemAudioRecording()
         case .both:
             return try startCombinedRecording()
+        case .none:
+            throw AudioRecorderError.noSourceSelected
         }
     }
 
@@ -384,4 +387,5 @@ extension AudioRecorderService: SCStreamOutput {
 enum AudioRecorderError: Error {
     case permissionDenied
     case recordingFailed
+    case noSourceSelected
 }

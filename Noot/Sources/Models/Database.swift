@@ -171,6 +171,63 @@ final class Database {
             try db.create(index: "meeting_contexts_meetingId", on: "meeting_contexts", columns: ["meetingId"])
         }
 
+        migrator.registerMigration("v2_calendar") { db in
+            // Calendar accounts table
+            try db.create(table: "calendar_accounts") { t in
+                t.column("id", .text).primaryKey()
+                t.column("email", .text).notNull().unique()
+                t.column("connectedAt", .datetime).notNull()
+                t.column("lastSyncAt", .datetime)
+            }
+
+            // Calendar events table
+            try db.create(table: "calendar_events") { t in
+                t.column("id", .text).primaryKey()
+                t.column("googleEventId", .text).notNull()
+                t.column("googleSeriesId", .text)
+                t.column("calendarAccountId", .text).notNull().references("calendar_accounts", onDelete: .cascade)
+                t.column("title", .text).notNull()
+                t.column("startTime", .datetime).notNull()
+                t.column("endTime", .datetime).notNull()
+                t.column("attendees", .text)
+                t.column("location", .text)
+                t.column("meetingLink", .text)
+                t.column("cachedAt", .datetime).notNull()
+            }
+
+            // Calendar series context rules table
+            try db.create(table: "calendar_series_context_rules") { t in
+                t.column("id", .text).primaryKey()
+                t.column("googleSeriesId", .text).notNull()
+                t.column("contextId", .text).notNull().references("contexts", onDelete: .cascade)
+                t.column("createdAt", .datetime).notNull()
+
+                t.uniqueKey(["googleSeriesId", "contextId"])
+            }
+
+            // Ignored calendar events table
+            try db.create(table: "ignored_calendar_events") { t in
+                t.column("id", .text).primaryKey()
+                t.column("googleEventId", .text)
+                t.column("googleSeriesId", .text)
+                t.column("createdAt", .datetime).notNull()
+            }
+
+            // Indexes for calendar events
+            try db.create(index: "calendar_events_googleEventId", on: "calendar_events", columns: ["googleEventId"])
+            try db.create(index: "calendar_events_googleSeriesId", on: "calendar_events", columns: ["googleSeriesId"])
+            try db.create(index: "calendar_events_startTime", on: "calendar_events", columns: ["startTime"])
+            try db.create(index: "calendar_events_endTime", on: "calendar_events", columns: ["endTime"])
+            try db.create(index: "calendar_events_calendarAccountId", on: "calendar_events", columns: ["calendarAccountId"])
+
+            // Index for series context rules
+            try db.create(index: "calendar_series_context_rules_googleSeriesId", on: "calendar_series_context_rules", columns: ["googleSeriesId"])
+
+            // Indexes for ignored events
+            try db.create(index: "ignored_calendar_events_googleEventId", on: "ignored_calendar_events", columns: ["googleEventId"])
+            try db.create(index: "ignored_calendar_events_googleSeriesId", on: "ignored_calendar_events", columns: ["googleSeriesId"])
+        }
+
         return migrator
     }
 }

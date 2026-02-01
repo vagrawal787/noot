@@ -3,25 +3,31 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		0138830E864501A2513F9148 /* NoteLinkPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EAD08B22A006100A60A0F5A /* NoteLinkPicker.swift */; };
+		0283A0795EA3108FE5C3EDBE /* CalendarPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00969BDC44971170556A9834 /* CalendarPreferencesView.swift */; };
 		02F11AFF07802690BC2CFC36 /* NoteAutoCloseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EEAC4DBE4D8DF1DF51B22D /* NoteAutoCloseService.swift */; };
 		0CD9452EAEB652CE53BD3C95 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF74E35AFCB41D69461DDAA /* Database.swift */; };
 		143854411A02263FD6B90710 /* NootTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1C5D6CAFE14D386EC15A6D /* NootTheme.swift */; };
 		1658440C8726EE29AC70AB82 /* MarkdownNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5055E2B0EA1729137A60D0A7 /* MarkdownNoteView.swift */; };
 		196B997DE942172A0C8AD29A /* CaptureWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897D0547A83EC73469A763C4 /* CaptureWindowView.swift */; };
+		1970A0474B2B4DE819A8FB1A /* GoogleOAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EF57A504C4C3E64FAE5767 /* GoogleOAuthService.swift */; };
 		201B933712B6838B01665387 /* Date+Noot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76008A4048E8332AFBA4A00A /* Date+Noot.swift */; };
 		29D85F765F83AB13A5FFB038 /* AudioRecorderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10E5832A9ED12C961F7999B /* AudioRecorderService.swift */; };
 		29ED2F3E6A8010960DCC5EC2 /* ContextManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708EEFFC632B99950A4D6C5B /* ContextManagerView.swift */; };
+		31DBB8DEDF67BE091F17BDEF /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05EB5B0C2706678359B73D5 /* PreferencesView.swift */; };
 		3933E873D9C0D9E908E8884A /* MediaCompressionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94348FE9BF38E1D533D78091 /* MediaCompressionService.swift */; };
 		4179F163D7F2E92FA744D6E9 /* Meeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E85B419D6231FA4F210F19 /* Meeting.swift */; };
 		484A1A62C26DCC4E7531D61C /* MarkdownRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8F6064C275A2AE29557734 /* MarkdownRenderer.swift */; };
+		4D39754D02C83798A40680CF /* CalendarSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30DD6CDC620FF8781C00B49 /* CalendarSyncService.swift */; };
 		4DAC58091C88A883F4DDFF5B /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E810F1A40BD2CD981B7E8 /* UserPreferences.swift */; };
+		540FFC2F83712E5B0A1E87EF /* MeetingCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238A1DF2E6B34AF0617327D0 /* MeetingCalendarView.swift */; };
 		592631048728868581605192 /* NoteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F548A3DD929FEDFE021B473C /* NoteListView.swift */; };
 		5929193F5E0758230A716574 /* MeetingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DA60143D9A5F7E131962D4 /* MeetingManager.swift */; };
+		5BB9D6FEDEDB98DC2795518A /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D9C7A524EF4F8E20BEE5E5 /* KeychainService.swift */; };
 		6302C468B04C5CC0CEEC53A4 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CDE80A2A2C5FE2ABD7958D /* SidebarView.swift */; };
 		679181A98F3354962474BCA4 /* FileManager+Noot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880FE28D5D6665371FE5672 /* FileManager+Noot.swift */; };
 		67BF5B81674EE8A75EBBC5F4 /* MeetingEndView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CA4911371707D1B67D3A9E /* MeetingEndView.swift */; };
@@ -31,13 +37,16 @@
 		76A9CCF2C79E319970A93B66 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = AB431C6EDE66D545CEC34AEB /* GRDB */; };
 		76DDE1CD31D5FABCB6672E35 /* ContextPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530BFA162F001F31B73D8F3E /* ContextPicker.swift */; };
 		8AD240AD8EA3538F8A97020F /* MeetingStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C721A7D8536D1F470510F3 /* MeetingStatusView.swift */; };
+		8DAC377F584245E27EB89319 /* MeetingCalendarLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9298108B51307C5A90C3A16 /* MeetingCalendarLinkView.swift */; };
 		929A64D6FFBACE7EBD0F49F6 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7FE8253B2B7EB374CF538A /* Note.swift */; };
 		99F8CB0737BD594AEDF1D9A3 /* HotkeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E526D60D31E7F9F65C4EE0 /* HotkeyManager.swift */; };
 		9A3098972C8494FCCF9D1B8C /* ScreenCaptureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299A672D236DCD55B628C22B /* ScreenCaptureService.swift */; };
 		A4A70AD40324BA349F948016 /* ScreenContextDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008F7C506A2D1E1E740D6E31 /* ScreenContextDetector.swift */; };
+		A93D802500ECCE7EBC4FEF4D /* GoogleCalendarAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79A7B7F838503FEDA16849D /* GoogleCalendarAPI.swift */; };
 		ABC45860C9A9CBDD821C4566 /* NootApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2F1724AFFBBD00C7695F1A /* NootApp.swift */; };
 		B1CB21CB907386B7C94945C7 /* MainWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63A9C5D8382F5AB494CDB47 /* MainWindowView.swift */; };
 		BDB83B74033FE4D9014C2120 /* QuickContextPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB5F6D80D99A3966FE6599 /* QuickContextPicker.swift */; };
+		BF74EA337A36D9EF015CEAE4 /* CalendarModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E889A3959D6BE903C0FFC8F /* CalendarModels.swift */; };
 		CC64DE53BD8CA44EAB61B216 /* NoteLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B569710E421259478381339 /* NoteLink.swift */; };
 		D63151F00C6DE07EEDC939AC /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE78823F3B0D2B68D6BBA3 /* MenuBarView.swift */; };
 		EDF841E42DA882B0873EB363 /* NoteContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C601B3BA9B01E49EAA6C2618 /* NoteContext.swift */; };
@@ -52,8 +61,10 @@
 
 /* Begin PBXFileReference section */
 		008F7C506A2D1E1E740D6E31 /* ScreenContextDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenContextDetector.swift; sourceTree = "<group>"; };
+		00969BDC44971170556A9834 /* CalendarPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPreferencesView.swift; sourceTree = "<group>"; };
 		17DA60143D9A5F7E131962D4 /* MeetingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingManager.swift; sourceTree = "<group>"; };
 		1D5203F8E928AD866F548644 /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
+		238A1DF2E6B34AF0617327D0 /* MeetingCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingCalendarView.swift; sourceTree = "<group>"; };
 		27C721A7D8536D1F470510F3 /* MeetingStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingStatusView.swift; sourceTree = "<group>"; };
 		2880FE28D5D6665371FE5672 /* FileManager+Noot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Noot.swift"; sourceTree = "<group>"; };
 		28E85B419D6231FA4F210F19 /* Meeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meeting.swift; sourceTree = "<group>"; };
@@ -68,6 +79,7 @@
 		530BFA162F001F31B73D8F3E /* ContextPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextPicker.swift; sourceTree = "<group>"; };
 		56CE76086AACE8A2B4F21715 /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		5E7FE8253B2B7EB374CF538A /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		6E889A3959D6BE903C0FFC8F /* CalendarModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarModels.swift; sourceTree = "<group>"; };
 		708EEFFC632B99950A4D6C5B /* ContextManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextManagerView.swift; sourceTree = "<group>"; };
 		76008A4048E8332AFBA4A00A /* Date+Noot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Noot.swift"; sourceTree = "<group>"; };
 		7CF74E35AFCB41D69461DDAA /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
@@ -80,17 +92,23 @@
 		8C4E810F1A40BD2CD981B7E8 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		94348FE9BF38E1D533D78091 /* MediaCompressionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCompressionService.swift; sourceTree = "<group>"; };
 		98CE78823F3B0D2B68D6BBA3 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
+		A30DD6CDC620FF8781C00B49 /* CalendarSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSyncService.swift; sourceTree = "<group>"; };
 		A5CDE80A2A2C5FE2ABD7958D /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		AE8925D3A70815544BC9042F /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		B05EB5B0C2706678359B73D5 /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		B5EEAC4DBE4D8DF1DF51B22D /* NoteAutoCloseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteAutoCloseService.swift; sourceTree = "<group>"; };
 		B63A9C5D8382F5AB494CDB47 /* MainWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowView.swift; sourceTree = "<group>"; };
 		BC8D761E57C77A159CE32C88 /* View+Noot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Noot.swift"; sourceTree = "<group>"; };
 		C10E5832A9ED12C961F7999B /* AudioRecorderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderService.swift; sourceTree = "<group>"; };
 		C601B3BA9B01E49EAA6C2618 /* NoteContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteContext.swift; sourceTree = "<group>"; };
 		CAAD5F660222D0ABBAB3BE6C /* NoteDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailView.swift; sourceTree = "<group>"; };
+		D79A7B7F838503FEDA16849D /* GoogleCalendarAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCalendarAPI.swift; sourceTree = "<group>"; };
+		E3EF57A504C4C3E64FAE5767 /* GoogleOAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleOAuthService.swift; sourceTree = "<group>"; };
 		E43E2A04AD6FC5F3695BEB8B /* MeetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingView.swift; sourceTree = "<group>"; };
+		E6D9C7A524EF4F8E20BEE5E5 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		F548A3DD929FEDFE021B473C /* NoteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListView.swift; sourceTree = "<group>"; };
 		F8CB5F6D80D99A3966FE6599 /* QuickContextPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickContextPicker.swift; sourceTree = "<group>"; };
+		F9298108B51307C5A90C3A16 /* MeetingCalendarLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingCalendarLinkView.swift; sourceTree = "<group>"; };
 		FE2F1724AFFBBD00C7695F1A /* NootApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NootApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -133,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				3C0695146F441CF5E2A9CB3A /* Attachment.swift */,
+				6E889A3959D6BE903C0FFC8F /* CalendarModels.swift */,
 				56CE76086AACE8A2B4F21715 /* Context.swift */,
 				7CF74E35AFCB41D69461DDAA /* Database.swift */,
 				28E85B419D6231FA4F210F19 /* Meeting.swift */,
@@ -147,6 +166,8 @@
 		5C57768E45C18B46E430E67D /* Meeting */ = {
 			isa = PBXGroup;
 			children = (
+				F9298108B51307C5A90C3A16 /* MeetingCalendarLinkView.swift */,
+				238A1DF2E6B34AF0617327D0 /* MeetingCalendarView.swift */,
 				31CA4911371707D1B67D3A9E /* MeetingEndView.swift */,
 				3D44632414F16362279356CD /* MeetingStartView.swift */,
 				27C721A7D8536D1F470510F3 /* MeetingStatusView.swift */,
@@ -182,7 +203,11 @@
 			isa = PBXGroup;
 			children = (
 				C10E5832A9ED12C961F7999B /* AudioRecorderService.swift */,
+				A30DD6CDC620FF8781C00B49 /* CalendarSyncService.swift */,
+				D79A7B7F838503FEDA16849D /* GoogleCalendarAPI.swift */,
+				E3EF57A504C4C3E64FAE5767 /* GoogleOAuthService.swift */,
 				38E526D60D31E7F9F65C4EE0 /* HotkeyManager.swift */,
+				E6D9C7A524EF4F8E20BEE5E5 /* KeychainService.swift */,
 				94348FE9BF38E1D533D78091 /* MediaCompressionService.swift */,
 				17DA60143D9A5F7E131962D4 /* MeetingManager.swift */,
 				B5EEAC4DBE4D8DF1DF51B22D /* NoteAutoCloseService.swift */,
@@ -252,9 +277,19 @@
 				9F554A3C545D3FF6955A3EFE /* Inbox */,
 				5C57768E45C18B46E430E67D /* Meeting */,
 				C2B9FE20A4490760FED27DBC /* MenuBar */,
+				FB6AC64DFA3666187280E953 /* Preferences */,
 				2C6B9DF1354CF6332F0D0BBA /* Shared */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		FB6AC64DFA3666187280E953 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				00969BDC44971170556A9834 /* CalendarPreferencesView.swift */,
+				B05EB5B0C2706678359B73D5 /* PreferencesView.swift */,
+			);
+			path = Preferences;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -304,9 +339,8 @@
 			mainGroup = BDE4D6FD00C441D00CB7A18B;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				5523744E5C9A2C829FFFB041 /* XCRemoteSwiftPackageReference "GRDB.swift" */,
+				5523744E5C9A2C829FFFB041 /* XCRemoteSwiftPackageReference "GRDB" */,
 			);
-			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -322,6 +356,9 @@
 			files = (
 				690D20E85931ADD66268809B /* Attachment.swift in Sources */,
 				29D85F765F83AB13A5FFB038 /* AudioRecorderService.swift in Sources */,
+				BF74EA337A36D9EF015CEAE4 /* CalendarModels.swift in Sources */,
+				0283A0795EA3108FE5C3EDBE /* CalendarPreferencesView.swift in Sources */,
+				4D39754D02C83798A40680CF /* CalendarSyncService.swift in Sources */,
 				196B997DE942172A0C8AD29A /* CaptureWindowView.swift in Sources */,
 				FE05BAAA583CB2551C2978BB /* Context.swift in Sources */,
 				29ED2F3E6A8010960DCC5EC2 /* ContextManagerView.swift in Sources */,
@@ -330,13 +367,18 @@
 				0CD9452EAEB652CE53BD3C95 /* Database.swift in Sources */,
 				201B933712B6838B01665387 /* Date+Noot.swift in Sources */,
 				679181A98F3354962474BCA4 /* FileManager+Noot.swift in Sources */,
+				A93D802500ECCE7EBC4FEF4D /* GoogleCalendarAPI.swift in Sources */,
+				1970A0474B2B4DE819A8FB1A /* GoogleOAuthService.swift in Sources */,
 				99F8CB0737BD594AEDF1D9A3 /* HotkeyManager.swift in Sources */,
 				FBEA55385C3BA946B20A27EF /* InboxView.swift in Sources */,
+				5BB9D6FEDEDB98DC2795518A /* KeychainService.swift in Sources */,
 				B1CB21CB907386B7C94945C7 /* MainWindowView.swift in Sources */,
 				1658440C8726EE29AC70AB82 /* MarkdownNoteView.swift in Sources */,
 				484A1A62C26DCC4E7531D61C /* MarkdownRenderer.swift in Sources */,
 				3933E873D9C0D9E908E8884A /* MediaCompressionService.swift in Sources */,
 				4179F163D7F2E92FA744D6E9 /* Meeting.swift in Sources */,
+				8DAC377F584245E27EB89319 /* MeetingCalendarLinkView.swift in Sources */,
+				540FFC2F83712E5B0A1E87EF /* MeetingCalendarView.swift in Sources */,
 				67BF5B81674EE8A75EBBC5F4 /* MeetingEndView.swift in Sources */,
 				5929193F5E0758230A716574 /* MeetingManager.swift in Sources */,
 				FA1F9AD646DDF4D1CEB5F91D /* MeetingStartView.swift in Sources */,
@@ -353,6 +395,7 @@
 				0138830E864501A2513F9148 /* NoteLinkPicker.swift in Sources */,
 				592631048728868581605192 /* NoteListView.swift in Sources */,
 				F6C45D8412965DE88CE68FFD /* Notifications.swift in Sources */,
+				31DBB8DEDF67BE091F17BDEF /* PreferencesView.swift in Sources */,
 				BDB83B74033FE4D9014C2120 /* QuickContextPicker.swift in Sources */,
 				9A3098972C8494FCCF9D1B8C /* ScreenCaptureService.swift in Sources */,
 				F14280FA6BD43AC34EFC3159 /* ScreenContext.swift in Sources */,
@@ -428,9 +471,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Resources/Noot.entitlements;
 				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QA4VC5ZPBJ;
 				ENABLE_HARDENED_RUNTIME = NO;
 				INFOPLIST_FILE = Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -452,9 +497,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Resources/Noot.entitlements;
 				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QA4VC5ZPBJ;
 				ENABLE_HARDENED_RUNTIME = NO;
 				INFOPLIST_FILE = Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -557,7 +604,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5523744E5C9A2C829FFFB041 /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
+		5523744E5C9A2C829FFFB041 /* XCRemoteSwiftPackageReference "GRDB" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/groue/GRDB.swift";
 			requirement = {
@@ -570,7 +617,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		AB431C6EDE66D545CEC34AEB /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5523744E5C9A2C829FFFB041 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			package = 5523744E5C9A2C829FFFB041 /* XCRemoteSwiftPackageReference "GRDB" */;
 			productName = GRDB;
 		};
 /* End XCSwiftPackageProductDependency section */
