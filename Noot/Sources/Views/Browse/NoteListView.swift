@@ -4,8 +4,12 @@ import GRDB
 struct NoteListView: View {
     let sidebarItem: SidebarItem?
     @Binding var selectedNote: Note?
-    @State private var notes: [Note] = []
+    @State private var noteItems: [NoteListItem] = []
     @State private var searchText: String = ""
+    @State private var isLoadingMore: Bool = false
+    @State private var hasMoreNotes: Bool = true
+    @State private var currentOffset: Int = 0
+    private let pageSize: Int = 50
 
     var body: some View {
         VStack(spacing: 0) {
@@ -15,7 +19,7 @@ struct NoteListView: View {
                     .font(NootTheme.monoFontSmall)
                     .foregroundColor(NootTheme.cyan)
                 Spacer()
-                Text("\(notes.count)")
+                Text("\(noteItems.count)\(hasMoreNotes ? "+" : "")")
                     .font(NootTheme.monoFontSmall)
                     .foregroundColor(NootTheme.textMuted)
                     .padding(.horizontal, 8)
@@ -58,21 +62,32 @@ struct NoteListView: View {
                 .frame(height: 1)
 
             // Notes list
-            if notes.isEmpty {
+            if noteItems.isEmpty {
                 emptyState
             } else {
-                List(selection: $selectedNote) {
-                    ForEach(filteredNotes) { note in
-                        NoteListRow(note: note, isSelected: selectedNote?.id == note.id)
-                            .tag(note)
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                selectedNote = note
-                            }
+                ScrollView {
+                    LazyVStack(spacing: 0) {
+                        ForEach(filteredNotes) { item in
+                            NoteListRow(item: item, isSelected: selectedNote?.id == item.id)
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    loadFullNote(id: item.id)
+                                }
+                                .onAppear {
+                                    // Load more when approaching the end
+                                    if item.id == filteredNotes.last?.id && hasMoreNotes && !isLoadingMore {
+                                        loadMoreNotes()
+                                    }
+                                }
+                        }
+
+                        if isLoadingMore {
+                            ProgressView()
+                                .scaleEffect(0.8)
+                                .padding()
+                        }
                     }
                 }
-                .listStyle(.plain)
-                .scrollContentBackground(.hidden)
                 .background(NootTheme.background)
             }
         }
@@ -98,11 +113,11 @@ struct NoteListView: View {
         }
     }
 
-    private var filteredNotes: [Note] {
+    private var filteredNotes: [NoteListItem] {
         if searchText.isEmpty {
-            return notes
+            return noteItems
         }
-        return notes.filter { $0.content.localizedCaseInsensitiveContains(searchText) }
+        return noteItems.filter { $0.contentPreview.localizedCaseInsensitiveContains(searchText) }
     }
 
     @ViewBuilder
@@ -121,54 +136,82 @@ struct NoteListView: View {
     }
 
     private func loadNotes() {
+        currentOffset = 0
+        hasMoreNotes = true
+
         do {
-            notes = try Database.shared.read { db in
-                switch sidebarItem {
-                case .inbox:
-                    return try Note.ungrouped().fetchAll(db)
-                case .allNotes:
-                    return try Note
-                        .filter(Note.Columns.archived == false)
-                        .order(Note.Columns.updatedAt.desc)
-                        .fetchAll(db)
-                case .context(let context):
-                    let contextId = context.id
-                    let noteContexts = try NoteContext
-                        .filter(NoteContext.Columns.contextId == contextId)
-                        .fetchAll(db)
-                    let noteIds = noteContexts.map { $0.noteId }
-                    return try Note
-                        .filter(noteIds.contains(Note.Columns.id))
-                        .filter(Note.Columns.archived == false)
-                        .order(Note.Columns.updatedAt.desc)
-                        .fetchAll(db)
-                case .archive:
-                    return try Note
-                        .filter(Note.Columns.archived == true)
-                        .order(Note.Columns.updatedAt.desc)
-                        .fetchAll(db)
-                case .meetings, .calendar, .none:
-                    return []
-                }
+            let filter = noteListFilter
+            let items = try Database.shared.read { db in
+                try NoteListItem.fetch(db: db, filter: filter, limit: pageSize, offset: 0)
             }
+            noteItems = items
+            hasMoreNotes = items.count == pageSize
         } catch {
             print("Failed to load notes: \(error)")
+        }
+    }
+
+    private func loadMoreNotes() {
+        guard hasMoreNotes, !isLoadingMore else { return }
+        isLoadingMore = true
+        currentOffset += pageSize
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            do {
+                let filter = noteListFilter
+                let items = try Database.shared.read { db in
+                    try NoteListItem.fetch(db: db, filter: filter, limit: pageSize, offset: currentOffset)
+                }
+
+                DispatchQueue.main.async {
+                    noteItems.append(contentsOf: items)
+                    hasMoreNotes = items.count == pageSize
+                    isLoadingMore = false
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    print("Failed to load more notes: \(error)")
+                    isLoadingMore = false
+                }
+            }
+        }
+    }
+
+    private func loadFullNote(id: UUID) {
+        do {
+            if let note = try Database.shared.read({ db in
+                try Note.fetchOne(db, key: id)
+            }) {
+                selectedNote = note
+            }
+        } catch {
+            print("Failed to load full note: \(error)")
+        }
+    }
+
+    private var noteListFilter: NoteListFilter {
+        switch sidebarItem {
+        case .inbox:
+            return .inbox
+        case .allNotes:
+            return .all
+        case .context(let context):
+            return .context(context.id)
+        case .archive:
+            return .archived
+        case .meetings, .calendar, .none:
+            return .all
         }
     }
 }
 
 struct NoteListRow: View {
-    let note: Note
+    let item: NoteListItem
     var isSelected: Bool = false
-
-    // Check if note contains images
-    private var hasImages: Bool {
-        note.content.contains("![")
-    }
 
     // Get text content without image markdown
     private var textContent: String {
-        note.content.replacingOccurrences(of: #"!\[[^\]]*\]\([^)]+\)"#, with: "[img]", options: .regularExpression)
+        item.contentPreview.replacingOccurrences(of: #"!\[[^\]]*\]\([^)]+\)"#, with: "[img]", options: .regularExpression)
     }
 
     var body: some View {
@@ -179,17 +222,17 @@ struct NoteListRow: View {
                 .foregroundColor(NootTheme.textPrimary)
 
             HStack(spacing: 8) {
-                Text(note.createdAt, style: .relative)
+                Text(item.createdAt, style: .relative)
                     .font(.system(size: 10, design: .monospaced))
                     .foregroundColor(NootTheme.textMuted)
 
-                if hasImages {
+                if item.hasImages {
                     Image(systemName: "photo")
                         .font(.system(size: 9))
                         .foregroundColor(NootTheme.magenta.opacity(0.7))
                 }
 
-                if note.isOpen {
+                if item.isOpen {
                     HStack(spacing: 3) {
                         Circle()
                             .fill(NootTheme.success)
@@ -210,9 +253,7 @@ struct NoteListRow: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical, 8)
         .padding(.horizontal, 12)
-        .listRowBackground(isSelected ? NootTheme.cyan.opacity(0.15) : NootTheme.background)
-        .listRowSeparator(.hidden)
-        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+        .background(isSelected ? NootTheme.cyan.opacity(0.15) : NootTheme.background)
     }
 }
 

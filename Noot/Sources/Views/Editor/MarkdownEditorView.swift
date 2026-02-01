@@ -1,6 +1,77 @@
 import SwiftUI
 import WebKit
 
+// MARK: - Local File URL Scheme Handler
+
+/// Handles custom "noot-file://" URLs to serve local files to WKWebView
+/// This avoids base64 encoding which bloats memory usage
+class LocalFileSchemeHandler: NSObject, WKURLSchemeHandler {
+    static let scheme = "noot-file"
+
+    func webView(_ webView: WKWebView, start urlSchemeTask: WKURLSchemeTask) {
+        guard let url = urlSchemeTask.request.url else {
+            urlSchemeTask.didFailWithError(URLError(.badURL))
+            return
+        }
+
+        // Use autoreleasepool to ensure image data is released promptly
+        autoreleasepool {
+            // noot-file:///path/to/file -> /path/to/file
+            var filePath = url.path
+
+            // Decode percent-encoded characters (spaces, etc.)
+            if let decoded = filePath.removingPercentEncoding {
+                filePath = decoded
+            }
+
+            // Try alternate path with underscore if file doesn't exist
+            if !FileManager.default.fileExists(atPath: filePath) {
+                let addUnderscorePattern = #"(screenshot|recording)(\d)"#
+                let alternatePath = filePath.replacingOccurrences(
+                    of: addUnderscorePattern,
+                    with: "$1_$2",
+                    options: .regularExpression
+                )
+                if alternatePath != filePath && FileManager.default.fileExists(atPath: alternatePath) {
+                    filePath = alternatePath
+                }
+            }
+
+            let fileURL = URL(fileURLWithPath: filePath)
+
+            guard let data = try? Data(contentsOf: fileURL) else {
+                urlSchemeTask.didFailWithError(URLError(.fileDoesNotExist))
+                return
+            }
+
+            let mimeType = mimeTypeForExtension(fileURL.pathExtension)
+            let response = URLResponse(url: url, mimeType: mimeType, expectedContentLength: data.count, textEncodingName: nil)
+
+            urlSchemeTask.didReceive(response)
+            urlSchemeTask.didReceive(data)
+            urlSchemeTask.didFinish()
+        }
+    }
+
+    func webView(_ webView: WKWebView, stop urlSchemeTask: WKURLSchemeTask) {
+        // Nothing to clean up
+    }
+
+    private func mimeTypeForExtension(_ ext: String) -> String {
+        switch ext.lowercased() {
+        case "png": return "image/png"
+        case "jpg", "jpeg": return "image/jpeg"
+        case "gif": return "image/gif"
+        case "webp": return "image/webp"
+        case "bmp": return "image/bmp"
+        case "tiff", "tif": return "image/tiff"
+        case "mp4": return "video/mp4"
+        case "mov": return "video/quicktime"
+        default: return "application/octet-stream"
+        }
+    }
+}
+
 struct MarkdownEditorView: NSViewRepresentable {
     typealias NSViewType = WKWebView
 
@@ -17,9 +88,11 @@ struct MarkdownEditorView: NSViewRepresentable {
         contentController.add(context.coordinator, name: "log")
         configuration.userContentController = contentController
 
-        // Allow local file access for images
-        configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
-        configuration.setValue(true, forKey: "allowUniversalAccessFromFileURLs")
+        // Use non-persistent data store to avoid caching images in memory
+        configuration.websiteDataStore = .nonPersistent()
+
+        // Register custom URL scheme handler for local files (memory efficient)
+        configuration.setURLSchemeHandler(LocalFileSchemeHandler(), forURLScheme: LocalFileSchemeHandler.scheme)
 
         let webView = WKWebView(frame: NSRect(x: 0, y: 0, width: 400, height: 300), configuration: configuration)
         webView.setValue(false, forKey: "drawsBackground")
@@ -57,6 +130,16 @@ struct MarkdownEditorView: NSViewRepresentable {
         webView.configuration.userContentController.removeScriptMessageHandler(forName: "save")
         webView.configuration.userContentController.removeScriptMessageHandler(forName: "editorReady")
         webView.configuration.userContentController.removeScriptMessageHandler(forName: "log")
+
+        // Clear all cached data to free memory
+        webView.configuration.websiteDataStore.removeData(
+            ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(),
+            modifiedSince: .distantPast
+        ) {}
+
+        // Stop loading and clear content
+        webView.stopLoading()
+        webView.loadHTMLString("", baseURL: nil)
     }
 
     func makeCoordinator() -> Coordinator {
@@ -526,92 +609,12 @@ struct MarkdownEditorView: NSViewRepresentable {
 // MARK: - Image Helper
 
 struct ImageHelper {
-    /// Convert file:// URLs in HTML to base64 data URLs
-    /// This is needed because WKWebView blocks local file access
+    /// Convert file:// URLs to noot-file:// URLs for the custom scheme handler
+    /// This is memory efficient - no base64 encoding needed
     static func convertFileURLsToDataURLs(_ html: String) -> String {
-        var result = html
-
-        // Pattern to find img src with file:// URLs
-        let pattern = #"<img\s+[^>]*src="(file://[^"]+)"[^>]*>"#
-        guard let regex = try? NSRegularExpression(pattern: pattern, options: [.caseInsensitive]) else {
-            return html
-        }
-
-        let matches = regex.matches(in: html, options: [], range: NSRange(html.startIndex..., in: html))
-
-        // Process matches in reverse to preserve string indices
-        for match in matches.reversed() {
-            guard let fullRange = Range(match.range, in: html),
-                  let urlRange = Range(match.range(at: 1), in: html) else {
-                continue
-            }
-
-            let fullMatch = String(html[fullRange])
-            let fileURLString = String(html[urlRange])
-
-            // Extract the file path from the URL string
-            var filePath: String
-            if fileURLString.hasPrefix("file:///") {
-                filePath = String(fileURLString.dropFirst(7))
-            } else if fileURLString.hasPrefix("file://") {
-                filePath = String(fileURLString.dropFirst(7))
-            } else {
-                continue
-            }
-
-            // Decode percent-encoded characters (spaces, etc.)
-            if let decoded = filePath.removingPercentEncoding {
-                filePath = decoded
-            }
-
-            var actualPath = filePath
-            let fileManager = FileManager.default
-
-            // Check if file exists, try alternate paths if not
-            if !fileManager.fileExists(atPath: filePath) {
-                // Fix missing underscore: "screenshot1234.jpg" → "screenshot_1234.jpg"
-                let addUnderscorePattern = #"(screenshot|recording)(\d)"#
-                let alternateWithUnderscore = filePath.replacingOccurrences(
-                    of: addUnderscorePattern,
-                    with: "$1_$2",
-                    options: .regularExpression
-                )
-
-                if alternateWithUnderscore != filePath && fileManager.fileExists(atPath: alternateWithUnderscore) {
-                    actualPath = alternateWithUnderscore
-                } else {
-                    continue
-                }
-            }
-
-            let fileURL = URL(fileURLWithPath: actualPath)
-
-            // Load the image and convert to base64
-            guard let imageData = try? Data(contentsOf: fileURL) else { continue }
-
-            let mimeType = mimeTypeForPath(actualPath)
-            let base64 = imageData.base64EncodedString()
-            let dataURL = "data:\(mimeType);base64,\(base64)"
-
-            // Replace the file URL with data URL in the img tag
-            let newImgTag = fullMatch.replacingOccurrences(of: fileURLString, with: dataURL)
-            result = result.replacingCharacters(in: fullRange, with: newImgTag)
-        }
-
-        return result
-    }
-
-    private static func mimeTypeForPath(_ path: String) -> String {
-        let ext = (path as NSString).pathExtension.lowercased()
-        switch ext {
-        case "png": return "image/png"
-        case "jpg", "jpeg": return "image/jpeg"
-        case "gif": return "image/gif"
-        case "webp": return "image/webp"
-        case "bmp": return "image/bmp"
-        case "tiff", "tif": return "image/tiff"
-        default: return "image/png"
-        }
+        // Simply replace file:// with noot-file://
+        // The LocalFileSchemeHandler will serve the files directly
+        return html.replacingOccurrences(of: "file://", with: "\(LocalFileSchemeHandler.scheme)://")
     }
 }
 

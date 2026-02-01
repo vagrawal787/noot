@@ -15,10 +15,6 @@ final class MediaCompressionService {
 
         guard level != .none else { return url }
 
-        guard let image = NSImage(contentsOf: url) else {
-            throw CompressionError.failedToLoadImage
-        }
-
         let quality: CGFloat
         let scale: CGFloat
 
@@ -39,29 +35,36 @@ final class MediaCompressionService {
         // Get original file size for tracking
         let originalSize = try FileManager.default.attributesOfItem(atPath: url.path)[.size] as? Int ?? 0
 
-        // Resize if needed
-        let resizedImage: NSImage
-        if scale < 1.0 {
-            let newSize = NSSize(
-                width: image.size.width * scale,
-                height: image.size.height * scale
-            )
-            resizedImage = resizeImage(image, to: newSize)
-        } else {
-            resizedImage = image
-        }
-
-        // Compress to JPEG
-        guard let tiffData = resizedImage.tiffRepresentation,
-              let bitmap = NSBitmapImageRep(data: tiffData),
-              let jpegData = bitmap.representation(using: .jpeg, properties: [.compressionFactor: quality]) else {
-            throw CompressionError.compressionFailed
-        }
-
         // Create new URL with .jpg extension
         let compressedURL = url.deletingPathExtension().appendingPathExtension("jpg")
 
-        try jpegData.write(to: compressedURL)
+        // Use autoreleasepool to ensure large image data is released promptly
+        try autoreleasepool {
+            guard let image = NSImage(contentsOf: url) else {
+                throw CompressionError.failedToLoadImage
+            }
+
+            // Resize if needed
+            let resizedImage: NSImage
+            if scale < 1.0 {
+                let newSize = NSSize(
+                    width: image.size.width * scale,
+                    height: image.size.height * scale
+                )
+                resizedImage = resizeImage(image, to: newSize)
+            } else {
+                resizedImage = image
+            }
+
+            // Compress to JPEG
+            guard let tiffData = resizedImage.tiffRepresentation,
+                  let bitmap = NSBitmapImageRep(data: tiffData),
+                  let jpegData = bitmap.representation(using: .jpeg, properties: [.compressionFactor: quality]) else {
+                throw CompressionError.compressionFailed
+            }
+
+            try jpegData.write(to: compressedURL)
+        }
 
         // Delete original if it's different
         if compressedURL.path != url.path {
