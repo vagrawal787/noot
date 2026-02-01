@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 63;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -37,6 +37,7 @@
 		A4A70AD40324BA349F948016 /* ScreenContextDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008F7C506A2D1E1E740D6E31 /* ScreenContextDetector.swift */; };
 		ABC45860C9A9CBDD821C4566 /* NootApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2F1724AFFBBD00C7695F1A /* NootApp.swift */; };
 		B1CB21CB907386B7C94945C7 /* MainWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63A9C5D8382F5AB494CDB47 /* MainWindowView.swift */; };
+		BDB83B74033FE4D9014C2120 /* QuickContextPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB5F6D80D99A3966FE6599 /* QuickContextPicker.swift */; };
 		CC64DE53BD8CA44EAB61B216 /* NoteLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B569710E421259478381339 /* NoteLink.swift */; };
 		D63151F00C6DE07EEDC939AC /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE78823F3B0D2B68D6BBA3 /* MenuBarView.swift */; };
 		EDF841E42DA882B0873EB363 /* NoteContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C601B3BA9B01E49EAA6C2618 /* NoteContext.swift */; };
@@ -87,6 +88,7 @@
 		CAAD5F660222D0ABBAB3BE6C /* NoteDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailView.swift; sourceTree = "<group>"; };
 		E43E2A04AD6FC5F3695BEB8B /* MeetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingView.swift; sourceTree = "<group>"; };
 		F548A3DD929FEDFE021B473C /* NoteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListView.swift; sourceTree = "<group>"; };
+		F8CB5F6D80D99A3966FE6599 /* QuickContextPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickContextPicker.swift; sourceTree = "<group>"; };
 		FE2F1724AFFBBD00C7695F1A /* NootApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NootApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -168,6 +170,7 @@
 			children = (
 				897D0547A83EC73469A763C4 /* CaptureWindowView.swift */,
 				858E530EDFFE60C93BF4FF4D /* ContinueNoteView.swift */,
+				F8CB5F6D80D99A3966FE6599 /* QuickContextPicker.swift */,
 			);
 			path = Capture;
 			sourceTree = "<group>";
@@ -298,8 +301,9 @@
 			mainGroup = BDE4D6FD00C441D00CB7A18B;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				5523744E5C9A2C829FFFB041 /* XCRemoteSwiftPackageReference "GRDB" */,
+				5523744E5C9A2C829FFFB041 /* XCRemoteSwiftPackageReference "GRDB.swift" */,
 			);
+			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -346,6 +350,7 @@
 				0138830E864501A2513F9148 /* NoteLinkPicker.swift in Sources */,
 				592631048728868581605192 /* NoteListView.swift in Sources */,
 				F6C45D8412965DE88CE68FFD /* Notifications.swift in Sources */,
+				BDB83B74033FE4D9014C2120 /* QuickContextPicker.swift in Sources */,
 				9A3098972C8494FCCF9D1B8C /* ScreenCaptureService.swift in Sources */,
 				F14280FA6BD43AC34EFC3159 /* ScreenContext.swift in Sources */,
 				A4A70AD40324BA349F948016 /* ScreenContextDetector.swift in Sources */,
@@ -419,11 +424,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Resources/Noot.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QA4VC5ZPBJ;
 				ENABLE_HARDENED_RUNTIME = NO;
 				INFOPLIST_FILE = Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -445,11 +448,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Resources/Noot.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QA4VC5ZPBJ;
 				ENABLE_HARDENED_RUNTIME = NO;
 				INFOPLIST_FILE = Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -552,7 +553,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5523744E5C9A2C829FFFB041 /* XCRemoteSwiftPackageReference "GRDB" */ = {
+		5523744E5C9A2C829FFFB041 /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/groue/GRDB.swift";
 			requirement = {
@@ -565,7 +566,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		AB431C6EDE66D545CEC34AEB /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5523744E5C9A2C829FFFB041 /* XCRemoteSwiftPackageReference "GRDB" */;
+			package = 5523744E5C9A2C829FFFB041 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
 			productName = GRDB;
 		};
 /* End XCSwiftPackageProductDependency section */

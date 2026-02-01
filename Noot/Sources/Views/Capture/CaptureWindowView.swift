@@ -14,6 +14,7 @@ struct CaptureWindowView: View {
     @State private var showNewContextSheet: Bool = false
     @State private var showFileSizeWarning: Bool = false
     @State private var recordingFileSize: Int = 0
+    @State private var showQuickContextPicker: Bool = false
     @FocusState private var isTextFieldFocused: Bool
 
     // Check if content has images
@@ -282,7 +283,7 @@ struct CaptureWindowView: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .triggerCaptureSave)) { _ in
-            saveAndDismiss()
+            handleEscapePressed()
         }
         .onReceive(NotificationCenter.default.publisher(for: .addMediaToCapture)) { notification in
             if let url = notification.userInfo?["url"] as? URL,
@@ -301,10 +302,31 @@ struct CaptureWindowView: View {
             }
         }
         .background(
-            Button("") { saveAndDismiss() }
+            Button("") { handleEscapePressed() }
                 .keyboardShortcut(.escape, modifiers: [])
                 .hidden()
         )
+        .overlay {
+            if showQuickContextPicker {
+                Color.black.opacity(0.3)
+                    .ignoresSafeArea()
+
+                QuickContextPicker(
+                    selectedContexts: $selectedContexts,
+                    onConfirm: {
+                        showQuickContextPicker = false
+                        saveNote()
+                        dismissWindow()
+                    },
+                    onDismiss: {
+                        showQuickContextPicker = false
+                        selectedContexts = []
+                        saveNote()
+                        dismissWindow()
+                    }
+                )
+            }
+        }
         .sheet(isPresented: $showNoteLinkPicker) {
             InlineNoteLinkPicker(
                 currentNoteId: editingNoteId,
@@ -645,6 +667,21 @@ struct CaptureWindowView: View {
         }
     }
 
+    private func handleEscapePressed() {
+        if showQuickContextPicker {
+            // Second Esc - dismiss picker and save to inbox without context
+            showQuickContextPicker = false
+            selectedContexts = []
+            saveAndDismiss()
+        } else if !noteContent.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            // First Esc with content - show context picker
+            showQuickContextPicker = true
+        } else {
+            // Empty note - just dismiss
+            dismissWindow()
+        }
+    }
+
     private func saveAndDismiss() {
         // Auto-save if there's content, otherwise just dismiss
         if !noteContent.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -706,6 +743,7 @@ struct CaptureWindowView: View {
         selectedContexts = []
         screenContext = nil
         editingNoteId = nil
+        showQuickContextPicker = false
 
         // Post notification to hide the capture window
         NotificationCenter.default.post(name: .hideCaptureWindow, object: nil)
