@@ -63,7 +63,7 @@ struct NoteListView: View {
             } else {
                 List(selection: $selectedNote) {
                     ForEach(filteredNotes) { note in
-                        NoteListRow(note: note)
+                        NoteListRow(note: note, isSelected: selectedNote?.id == note.id)
                             .tag(note)
                             .contentShape(Rectangle())
                             .onTapGesture {
@@ -159,6 +159,7 @@ struct NoteListView: View {
 
 struct NoteListRow: View {
     let note: Note
+    var isSelected: Bool = false
 
     // Check if note contains images
     private var hasImages: Bool {
@@ -206,8 +207,12 @@ struct NoteListRow: View {
                 }
             }
         }
-        .padding(.vertical, 4)
-        .listRowBackground(NootTheme.background)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.vertical, 8)
+        .padding(.horizontal, 12)
+        .listRowBackground(isSelected ? NootTheme.cyan.opacity(0.15) : NootTheme.background)
+        .listRowSeparator(.hidden)
+        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
     }
 }
 
