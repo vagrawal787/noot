@@ -22,6 +22,9 @@ packages:
   GRDB:
     url: https://github.com/groue/GRDB.swift
     from: "6.24.0"
+  Yams:
+    url: https://github.com/jpsim/Yams
+    from: "5.0.0"
 
 targets:
   Noot:
@@ -46,6 +49,7 @@ targets:
         ENABLE_HARDENED_RUNTIME: NO
     dependencies:
       - package: GRDB
+      - package: Yams
     entitlements:
       path: Resources/Noot.entitlements
       properties:

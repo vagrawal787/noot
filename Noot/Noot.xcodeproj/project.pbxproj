@@ -16,20 +16,25 @@
 		196B997DE942172A0C8AD29A /* CaptureWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897D0547A83EC73469A763C4 /* CaptureWindowView.swift */; };
 		1970A0474B2B4DE819A8FB1A /* GoogleOAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EF57A504C4C3E64FAE5767 /* GoogleOAuthService.swift */; };
 		201B933712B6838B01665387 /* Date+Noot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76008A4048E8332AFBA4A00A /* Date+Noot.swift */; };
+		27F26085514D4656CA4688E1 /* ExportModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939415F08EADC2A241A1B963 /* ExportModels.swift */; };
 		29D85F765F83AB13A5FFB038 /* AudioRecorderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10E5832A9ED12C961F7999B /* AudioRecorderService.swift */; };
 		29ED2F3E6A8010960DCC5EC2 /* ContextManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708EEFFC632B99950A4D6C5B /* ContextManagerView.swift */; };
 		31DBB8DEDF67BE091F17BDEF /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05EB5B0C2706678359B73D5 /* PreferencesView.swift */; };
+		373EA2090448FAC7CC1709C4 /* IntegrationsPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F05F2D8776AC19B6E8475A1 /* IntegrationsPreferencesView.swift */; };
 		3933E873D9C0D9E908E8884A /* MediaCompressionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94348FE9BF38E1D533D78091 /* MediaCompressionService.swift */; };
 		3CEF32CA6652FF3E44868BA3 /* MarkdownEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD7C8B94F6711C01AEB8053 /* MarkdownEditorView.swift */; };
 		4179F163D7F2E92FA744D6E9 /* Meeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E85B419D6231FA4F210F19 /* Meeting.swift */; };
 		484A1A62C26DCC4E7531D61C /* MarkdownRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8F6064C275A2AE29557734 /* MarkdownRenderer.swift */; };
+		49180608B0F1FE2EDC8C1DE4 /* NotionModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82DDF45F52817C1F2E068B /* NotionModels.swift */; };
 		4D39754D02C83798A40680CF /* CalendarSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30DD6CDC620FF8781C00B49 /* CalendarSyncService.swift */; };
 		4DAC58091C88A883F4DDFF5B /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4E810F1A40BD2CD981B7E8 /* UserPreferences.swift */; };
 		540FFC2F83712E5B0A1E87EF /* MeetingCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238A1DF2E6B34AF0617327D0 /* MeetingCalendarView.swift */; };
 		592631048728868581605192 /* NoteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F548A3DD929FEDFE021B473C /* NoteListView.swift */; };
 		5929193F5E0758230A716574 /* MeetingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DA60143D9A5F7E131962D4 /* MeetingManager.swift */; };
+		5B0D30CFABCA75528C1A7CE6 /* ImportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BBA8E3C754543AAEED3F2F /* ImportService.swift */; };
 		5BB9D6FEDEDB98DC2795518A /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D9C7A524EF4F8E20BEE5E5 /* KeychainService.swift */; };
 		6302C468B04C5CC0CEEC53A4 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CDE80A2A2C5FE2ABD7958D /* SidebarView.swift */; };
+		65AE33EFE29839D456537AAA /* SchemaMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77794E90195641922ABA4B16 /* SchemaMigration.swift */; };
 		679181A98F3354962474BCA4 /* FileManager+Noot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2880FE28D5D6665371FE5672 /* FileManager+Noot.swift */; };
 		67BF5B81674EE8A75EBBC5F4 /* MeetingEndView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CA4911371707D1B67D3A9E /* MeetingEndView.swift */; };
 		690D20E85931ADD66268809B /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0695146F441CF5E2A9CB3A /* Attachment.swift */; };
@@ -37,6 +42,9 @@
 		7676123737E4A0B95E8AA4F7 /* NoteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD5F660222D0ABBAB3BE6C /* NoteDetailView.swift */; };
 		76A9CCF2C79E319970A93B66 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = AB431C6EDE66D545CEC34AEB /* GRDB */; };
 		76DDE1CD31D5FABCB6672E35 /* ContextPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530BFA162F001F31B73D8F3E /* ContextPicker.swift */; };
+		7C38F1566A9CA1F354AB54BB /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = 249F68ADC888F5554B0D86AB /* Yams */; };
+		7D8D5161D7E91B03234D86B1 /* ImportPreviewSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26ED1F1936365C6D0832F7A5 /* ImportPreviewSheet.swift */; };
+		7E02C35A91D3EFA7F8A13788 /* NotionSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74142B7B883F6A90417DE6B0 /* NotionSyncService.swift */; };
 		8AD240AD8EA3538F8A97020F /* MeetingStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C721A7D8536D1F470510F3 /* MeetingStatusView.swift */; };
 		8DAC377F584245E27EB89319 /* MeetingCalendarLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9298108B51307C5A90C3A16 /* MeetingCalendarLinkView.swift */; };
 		929A64D6FFBACE7EBD0F49F6 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7FE8253B2B7EB374CF538A /* Note.swift */; };
@@ -45,11 +53,14 @@
 		A4A70AD40324BA349F948016 /* ScreenContextDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008F7C506A2D1E1E740D6E31 /* ScreenContextDetector.swift */; };
 		A93D802500ECCE7EBC4FEF4D /* GoogleCalendarAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79A7B7F838503FEDA16849D /* GoogleCalendarAPI.swift */; };
 		ABC45860C9A9CBDD821C4566 /* NootApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2F1724AFFBBD00C7695F1A /* NootApp.swift */; };
+		AD7F5814F309872ED0D92F09 /* NotionOAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA7E96C95B817AA2F701294 /* NotionOAuthService.swift */; };
 		B1CB21CB907386B7C94945C7 /* MainWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63A9C5D8382F5AB494CDB47 /* MainWindowView.swift */; };
 		BDB83B74033FE4D9014C2120 /* QuickContextPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB5F6D80D99A3966FE6599 /* QuickContextPicker.swift */; };
 		BF74EA337A36D9EF015CEAE4 /* CalendarModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E889A3959D6BE903C0FFC8F /* CalendarModels.swift */; };
 		CC64DE53BD8CA44EAB61B216 /* NoteLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B569710E421259478381339 /* NoteLink.swift */; };
+		CD3F53146447B48F727C884A /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C1C2E38B9FF2DE92DC90D0 /* ExportService.swift */; };
 		D63151F00C6DE07EEDC939AC /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE78823F3B0D2B68D6BBA3 /* MenuBarView.swift */; };
+		EA17ABB07E1B2B5E8463667F /* NotionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D73A910F493DC172A1718CF /* NotionAPI.swift */; };
 		EDF841E42DA882B0873EB363 /* NoteContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C601B3BA9B01E49EAA6C2618 /* NoteContext.swift */; };
 		F092ABD359F2A520EED425F6 /* MeetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43E2A04AD6FC5F3695BEB8B /* MeetingView.swift */; };
 		F14280FA6BD43AC34EFC3159 /* ScreenContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F855621F4EC03E530B00FB /* ScreenContext.swift */; };
@@ -57,6 +68,7 @@
 		FA1F9AD646DDF4D1CEB5F91D /* MeetingStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D44632414F16362279356CD /* MeetingStartView.swift */; };
 		FBEA55385C3BA946B20A27EF /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5203F8E928AD866F548644 /* InboxView.swift */; };
 		FE05BAAA583CB2551C2978BB /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CE76086AACE8A2B4F21715 /* Context.swift */; };
+		FF05E4E4AB85616690EE168E /* DataPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C82E7DA6CD2472A66DC1102 /* DataPreferencesView.swift */; };
 		FF14DE57E992888090B7C0C2 /* View+Noot.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8D761E57C77A159CE32C88 /* View+Noot.swift */; };
 /* End PBXBuildFile section */
 
@@ -65,7 +77,10 @@
 		00969BDC44971170556A9834 /* CalendarPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPreferencesView.swift; sourceTree = "<group>"; };
 		17DA60143D9A5F7E131962D4 /* MeetingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingManager.swift; sourceTree = "<group>"; };
 		1D5203F8E928AD866F548644 /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
+		1FA7E96C95B817AA2F701294 /* NotionOAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotionOAuthService.swift; sourceTree = "<group>"; };
 		238A1DF2E6B34AF0617327D0 /* MeetingCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingCalendarView.swift; sourceTree = "<group>"; };
+		23BBA8E3C754543AAEED3F2F /* ImportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportService.swift; sourceTree = "<group>"; };
+		26ED1F1936365C6D0832F7A5 /* ImportPreviewSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportPreviewSheet.swift; sourceTree = "<group>"; };
 		27C721A7D8536D1F470510F3 /* MeetingStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingStatusView.swift; sourceTree = "<group>"; };
 		2880FE28D5D6665371FE5672 /* FileManager+Noot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Noot.swift"; sourceTree = "<group>"; };
 		28E85B419D6231FA4F210F19 /* Meeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meeting.swift; sourceTree = "<group>"; };
@@ -76,14 +91,21 @@
 		3C0695146F441CF5E2A9CB3A /* Attachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
 		3D44632414F16362279356CD /* MeetingStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingStartView.swift; sourceTree = "<group>"; };
 		4D0BB85231AC8ADF73CB7D13 /* Noot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Noot.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F05F2D8776AC19B6E8475A1 /* IntegrationsPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationsPreferencesView.swift; sourceTree = "<group>"; };
 		5055E2B0EA1729137A60D0A7 /* MarkdownNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownNoteView.swift; sourceTree = "<group>"; };
 		530BFA162F001F31B73D8F3E /* ContextPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextPicker.swift; sourceTree = "<group>"; };
 		56CE76086AACE8A2B4F21715 /* Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
+		5C82DDF45F52817C1F2E068B /* NotionModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotionModels.swift; sourceTree = "<group>"; };
+		5D73A910F493DC172A1718CF /* NotionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotionAPI.swift; sourceTree = "<group>"; };
 		5E7FE8253B2B7EB374CF538A /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		6BD7C8B94F6711C01AEB8053 /* MarkdownEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownEditorView.swift; sourceTree = "<group>"; };
 		6E889A3959D6BE903C0FFC8F /* CalendarModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarModels.swift; sourceTree = "<group>"; };
 		708EEFFC632B99950A4D6C5B /* ContextManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextManagerView.swift; sourceTree = "<group>"; };
+		73C1C2E38B9FF2DE92DC90D0 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
+		74142B7B883F6A90417DE6B0 /* NotionSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotionSyncService.swift; sourceTree = "<group>"; };
 		76008A4048E8332AFBA4A00A /* Date+Noot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Noot.swift"; sourceTree = "<group>"; };
+		77794E90195641922ABA4B16 /* SchemaMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaMigration.swift; sourceTree = "<group>"; };
+		7C82E7DA6CD2472A66DC1102 /* DataPreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPreferencesView.swift; sourceTree = "<group>"; };
 		7CF74E35AFCB41D69461DDAA /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		7D1C5D6CAFE14D386EC15A6D /* NootTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NootTheme.swift; sourceTree = "<group>"; };
 		7D8F6064C275A2AE29557734 /* MarkdownRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownRenderer.swift; sourceTree = "<group>"; };
@@ -92,6 +114,7 @@
 		858E530EDFFE60C93BF4FF4D /* ContinueNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueNoteView.swift; sourceTree = "<group>"; };
 		897D0547A83EC73469A763C4 /* CaptureWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureWindowView.swift; sourceTree = "<group>"; };
 		8C4E810F1A40BD2CD981B7E8 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		939415F08EADC2A241A1B963 /* ExportModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportModels.swift; sourceTree = "<group>"; };
 		94348FE9BF38E1D533D78091 /* MediaCompressionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCompressionService.swift; sourceTree = "<group>"; };
 		98CE78823F3B0D2B68D6BBA3 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
 		A30DD6CDC620FF8781C00B49 /* CalendarSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSyncService.swift; sourceTree = "<group>"; };
@@ -120,6 +143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				76A9CCF2C79E319970A93B66 /* GRDB in Frameworks */,
+				7C38F1566A9CA1F354AB54BB /* Yams in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,13 +180,24 @@
 				6E889A3959D6BE903C0FFC8F /* CalendarModels.swift */,
 				56CE76086AACE8A2B4F21715 /* Context.swift */,
 				7CF74E35AFCB41D69461DDAA /* Database.swift */,
+				939415F08EADC2A241A1B963 /* ExportModels.swift */,
 				28E85B419D6231FA4F210F19 /* Meeting.swift */,
 				5E7FE8253B2B7EB374CF538A /* Note.swift */,
 				C601B3BA9B01E49EAA6C2618 /* NoteContext.swift */,
 				2B569710E421259478381339 /* NoteLink.swift */,
+				5C82DDF45F52817C1F2E068B /* NotionModels.swift */,
+				77794E90195641922ABA4B16 /* SchemaMigration.swift */,
 				84F855621F4EC03E530B00FB /* ScreenContext.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		4D25DB3F2EC9F6CD4F940D69 /* Import */ = {
+			isa = PBXGroup;
+			children = (
+				26ED1F1936365C6D0832F7A5 /* ImportPreviewSheet.swift */,
+			);
+			path = Import;
 			sourceTree = "<group>";
 		};
 		5C57768E45C18B46E430E67D /* Meeting */ = {
@@ -206,13 +241,18 @@
 			children = (
 				C10E5832A9ED12C961F7999B /* AudioRecorderService.swift */,
 				A30DD6CDC620FF8781C00B49 /* CalendarSyncService.swift */,
+				73C1C2E38B9FF2DE92DC90D0 /* ExportService.swift */,
 				D79A7B7F838503FEDA16849D /* GoogleCalendarAPI.swift */,
 				E3EF57A504C4C3E64FAE5767 /* GoogleOAuthService.swift */,
 				38E526D60D31E7F9F65C4EE0 /* HotkeyManager.swift */,
+				23BBA8E3C754543AAEED3F2F /* ImportService.swift */,
 				E6D9C7A524EF4F8E20BEE5E5 /* KeychainService.swift */,
 				94348FE9BF38E1D533D78091 /* MediaCompressionService.swift */,
 				17DA60143D9A5F7E131962D4 /* MeetingManager.swift */,
 				B5EEAC4DBE4D8DF1DF51B22D /* NoteAutoCloseService.swift */,
+				5D73A910F493DC172A1718CF /* NotionAPI.swift */,
+				1FA7E96C95B817AA2F701294 /* NotionOAuthService.swift */,
+				74142B7B883F6A90417DE6B0 /* NotionSyncService.swift */,
 				299A672D236DCD55B628C22B /* ScreenCaptureService.swift */,
 				008F7C506A2D1E1E740D6E31 /* ScreenContextDetector.swift */,
 				8C4E810F1A40BD2CD981B7E8 /* UserPreferences.swift */,
@@ -285,6 +325,7 @@
 				A6DEA7B9DB884826C0F9B5B7 /* Browse */,
 				90D8A5F324273FA4CD2C44F1 /* Capture */,
 				C8F8286B601CBAB668E44E1D /* Editor */,
+				4D25DB3F2EC9F6CD4F940D69 /* Import */,
 				9F554A3C545D3FF6955A3EFE /* Inbox */,
 				5C57768E45C18B46E430E67D /* Meeting */,
 				C2B9FE20A4490760FED27DBC /* MenuBar */,
@@ -298,6 +339,8 @@
 			isa = PBXGroup;
 			children = (
 				00969BDC44971170556A9834 /* CalendarPreferencesView.swift */,
+				7C82E7DA6CD2472A66DC1102 /* DataPreferencesView.swift */,
+				4F05F2D8776AC19B6E8475A1 /* IntegrationsPreferencesView.swift */,
 				B05EB5B0C2706678359B73D5 /* PreferencesView.swift */,
 			);
 			path = Preferences;
@@ -320,6 +363,7 @@
 			name = Noot;
 			packageProductDependencies = (
 				AB431C6EDE66D545CEC34AEB /* GRDB */,
+				249F68ADC888F5554B0D86AB /* Yams */,
 			);
 			productName = Noot;
 			productReference = 4D0BB85231AC8ADF73CB7D13 /* Noot.app */;
@@ -351,6 +395,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				5523744E5C9A2C829FFFB041 /* XCRemoteSwiftPackageReference "GRDB" */,
+				935A30BCF2C96BB732B81159 /* XCRemoteSwiftPackageReference "Yams" */,
 			);
 			projectDirPath = "";
 			projectRoot = "";
@@ -375,13 +420,19 @@
 				29ED2F3E6A8010960DCC5EC2 /* ContextManagerView.swift in Sources */,
 				76DDE1CD31D5FABCB6672E35 /* ContextPicker.swift in Sources */,
 				6A3A0786FEDF309830E69556 /* ContinueNoteView.swift in Sources */,
+				FF05E4E4AB85616690EE168E /* DataPreferencesView.swift in Sources */,
 				0CD9452EAEB652CE53BD3C95 /* Database.swift in Sources */,
 				201B933712B6838B01665387 /* Date+Noot.swift in Sources */,
+				27F26085514D4656CA4688E1 /* ExportModels.swift in Sources */,
+				CD3F53146447B48F727C884A /* ExportService.swift in Sources */,
 				679181A98F3354962474BCA4 /* FileManager+Noot.swift in Sources */,
 				A93D802500ECCE7EBC4FEF4D /* GoogleCalendarAPI.swift in Sources */,
 				1970A0474B2B4DE819A8FB1A /* GoogleOAuthService.swift in Sources */,
 				99F8CB0737BD594AEDF1D9A3 /* HotkeyManager.swift in Sources */,
+				7D8D5161D7E91B03234D86B1 /* ImportPreviewSheet.swift in Sources */,
+				5B0D30CFABCA75528C1A7CE6 /* ImportService.swift in Sources */,
 				FBEA55385C3BA946B20A27EF /* InboxView.swift in Sources */,
+				373EA2090448FAC7CC1709C4 /* IntegrationsPreferencesView.swift in Sources */,
 				5BB9D6FEDEDB98DC2795518A /* KeychainService.swift in Sources */,
 				B1CB21CB907386B7C94945C7 /* MainWindowView.swift in Sources */,
 				3CEF32CA6652FF3E44868BA3 /* MarkdownEditorView.swift in Sources */,
@@ -407,8 +458,13 @@
 				0138830E864501A2513F9148 /* NoteLinkPicker.swift in Sources */,
 				592631048728868581605192 /* NoteListView.swift in Sources */,
 				F6C45D8412965DE88CE68FFD /* Notifications.swift in Sources */,
+				EA17ABB07E1B2B5E8463667F /* NotionAPI.swift in Sources */,
+				49180608B0F1FE2EDC8C1DE4 /* NotionModels.swift in Sources */,
+				AD7F5814F309872ED0D92F09 /* NotionOAuthService.swift in Sources */,
+				7E02C35A91D3EFA7F8A13788 /* NotionSyncService.swift in Sources */,
 				31DBB8DEDF67BE091F17BDEF /* PreferencesView.swift in Sources */,
 				BDB83B74033FE4D9014C2120 /* QuickContextPicker.swift in Sources */,
+				65AE33EFE29839D456537AAA /* SchemaMigration.swift in Sources */,
 				9A3098972C8494FCCF9D1B8C /* ScreenCaptureService.swift in Sources */,
 				F14280FA6BD43AC34EFC3159 /* ScreenContext.swift in Sources */,
 				A4A70AD40324BA349F948016 /* ScreenContextDetector.swift in Sources */,
@@ -624,9 +680,22 @@
 				minimumVersion = 6.24.0;
 			};
 		};
+		935A30BCF2C96BB732B81159 /* XCRemoteSwiftPackageReference "Yams" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jpsim/Yams";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		249F68ADC888F5554B0D86AB /* Yams */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 935A30BCF2C96BB732B81159 /* XCRemoteSwiftPackageReference "Yams" */;
+			productName = Yams;
+		};
 		AB431C6EDE66D545CEC34AEB /* GRDB */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5523744E5C9A2C829FFFB041 /* XCRemoteSwiftPackageReference "GRDB" */;

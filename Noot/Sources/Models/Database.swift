@@ -228,6 +228,38 @@ final class Database {
             try db.create(index: "ignored_calendar_events_googleSeriesId", on: "ignored_calendar_events", columns: ["googleSeriesId"])
         }
 
+        migrator.registerMigration("v3_notion") { db in
+            // Notion sync configuration table
+            try db.create(table: "notion_syncs") { t in
+                t.column("id", .text).primaryKey()
+                t.column("workspaceId", .text).notNull()
+                t.column("workspaceName", .text)
+                t.column("databaseId", .text).notNull()
+                t.column("databaseName", .text)
+                t.column("accessToken", .text).notNull()
+                t.column("connectedAt", .datetime).notNull()
+                t.column("lastSyncAt", .datetime)
+                t.column("syncArchivedNotes", .boolean).notNull().defaults(to: false)
+            }
+
+            // Note sync state table - tracks which notes have been synced
+            try db.create(table: "note_sync_states") { t in
+                t.column("id", .text).primaryKey()
+                t.column("noteId", .text).notNull().references("notes", onDelete: .cascade)
+                t.column("notionPageId", .text).notNull()
+                t.column("notionSyncId", .text).notNull().references("notion_syncs", onDelete: .cascade)
+                t.column("lastSyncedAt", .datetime).notNull()
+                t.column("syncHash", .text).notNull()
+
+                t.uniqueKey(["noteId", "notionSyncId"])
+            }
+
+            // Indexes for efficient lookups
+            try db.create(index: "note_sync_states_noteId", on: "note_sync_states", columns: ["noteId"])
+            try db.create(index: "note_sync_states_notionSyncId", on: "note_sync_states", columns: ["notionSyncId"])
+            try db.create(index: "note_sync_states_notionPageId", on: "note_sync_states", columns: ["notionPageId"])
+        }
+
         return migrator
     }
 }
