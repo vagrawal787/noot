@@ -16,6 +16,22 @@ struct UserPreferencesData: Codable {
     var autoStartMeetingNotes: Bool
     var googleOAuthCredentials: GoogleOAuthCredentials
 
+    // Export settings
+    var exportIncludeAttachments: Bool
+    var exportIncludeArchived: Bool
+    var exportOrganizeBy: String  // "context", "date", "flat"
+
+    // Auto-backup settings
+    var autoBackupEnabled: Bool
+    var autoBackupIntervalDays: Int
+    var autoBackupLocation: String?
+    var lastBackupDate: Date?
+
+    // Notion settings
+    var notionAutoSyncEnabled: Bool
+    var notionAutoSyncIntervalMinutes: Int
+    var notionSyncArchivedNotes: Bool
+
     init() {
         self.lastUsedContextIds = []
         self.defaultCaptureMode = .note
@@ -31,6 +47,22 @@ struct UserPreferencesData: Codable {
         self.showCalendarInMenubar = true
         self.autoStartMeetingNotes = false
         self.googleOAuthCredentials = GoogleOAuthCredentials()
+
+        // Export defaults
+        self.exportIncludeAttachments = true
+        self.exportIncludeArchived = false
+        self.exportOrganizeBy = "context"
+
+        // Auto-backup defaults
+        self.autoBackupEnabled = false
+        self.autoBackupIntervalDays = 7
+        self.autoBackupLocation = nil
+        self.lastBackupDate = nil
+
+        // Notion defaults
+        self.notionAutoSyncEnabled = false
+        self.notionAutoSyncIntervalMinutes = 30
+        self.notionSyncArchivedNotes = false
     }
 }
 
@@ -197,6 +229,92 @@ final class UserPreferences {
         get { preferences.googleOAuthCredentials }
         set {
             preferences.googleOAuthCredentials = newValue
+            save()
+        }
+    }
+
+    // MARK: - Export Settings
+
+    var exportIncludeAttachments: Bool {
+        get { preferences.exportIncludeAttachments }
+        set {
+            preferences.exportIncludeAttachments = newValue
+            save()
+        }
+    }
+
+    var exportIncludeArchived: Bool {
+        get { preferences.exportIncludeArchived }
+        set {
+            preferences.exportIncludeArchived = newValue
+            save()
+        }
+    }
+
+    var exportOrganizeBy: String {
+        get { preferences.exportOrganizeBy }
+        set {
+            preferences.exportOrganizeBy = newValue
+            save()
+        }
+    }
+
+    // MARK: - Auto-Backup Settings
+
+    var autoBackupEnabled: Bool {
+        get { preferences.autoBackupEnabled }
+        set {
+            preferences.autoBackupEnabled = newValue
+            save()
+        }
+    }
+
+    var autoBackupIntervalDays: Int {
+        get { preferences.autoBackupIntervalDays }
+        set {
+            preferences.autoBackupIntervalDays = newValue
+            save()
+        }
+    }
+
+    var autoBackupLocation: String? {
+        get { preferences.autoBackupLocation }
+        set {
+            preferences.autoBackupLocation = newValue
+            save()
+        }
+    }
+
+    var lastBackupDate: Date? {
+        get { preferences.lastBackupDate }
+        set {
+            preferences.lastBackupDate = newValue
+            save()
+        }
+    }
+
+    // MARK: - Notion Settings
+
+    var notionAutoSyncEnabled: Bool {
+        get { preferences.notionAutoSyncEnabled }
+        set {
+            preferences.notionAutoSyncEnabled = newValue
+            save()
+        }
+    }
+
+    var notionAutoSyncIntervalMinutes: Int {
+        get { preferences.notionAutoSyncIntervalMinutes }
+        set {
+            preferences.notionAutoSyncIntervalMinutes = newValue
+            save()
+        }
+    }
+
+    var notionSyncArchivedNotes: Bool {
+        get { preferences.notionSyncArchivedNotes }
+        set {
+            preferences.notionSyncArchivedNotes = newValue
             save()
         }
     }

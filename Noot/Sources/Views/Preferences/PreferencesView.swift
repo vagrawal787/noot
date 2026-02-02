@@ -1,16 +1,20 @@
 import SwiftUI
 
 struct PreferencesView: View {
-    @State private var selectedTab: PreferencesTab = .calendar
+    @State private var selectedTab: PreferencesTab = .general
 
     enum PreferencesTab: String, CaseIterable {
         case general = "General"
+        case data = "Data"
+        case integrations = "Integrations"
         case calendar = "Calendar"
         case hotkeys = "Hotkeys"
 
         var icon: String {
             switch self {
             case .general: return "gearshape"
+            case .data: return "externaldrive"
+            case .integrations: return "link"
             case .calendar: return "calendar"
             case .hotkeys: return "keyboard"
             }
@@ -49,6 +53,10 @@ struct PreferencesView: View {
                 switch selectedTab {
                 case .general:
                     GeneralPreferencesView()
+                case .data:
+                    DataPreferencesView()
+                case .integrations:
+                    IntegrationsPreferencesView()
                 case .calendar:
                     CalendarPreferencesView()
                 case .hotkeys:
